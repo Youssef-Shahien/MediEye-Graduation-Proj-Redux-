@@ -1,14 +1,40 @@
 import React, { useEffect } from "react";
 import "./Products.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getProducts } from "../../store/ProductsSlice";
 function Products() {
+  const { products, isLoading, error } = useSelector((state) => state.products);
   const dispatch = useDispatch();
+  /////////////////////Map on the Data and Show it there /////////////////////////////////////
+  const showData = products.map((item) => (
+    <tr key={item.id}>
+      <td>
+        <img src={item.image} className="imgPro py-2" alt="" />
+      </td>
+      <td className="text-info">{item.name}</td>
+      <td className="max">{item.description}</td>
+      <td>Loremipsum.</td>
+      <td>{item.price}</td>
+      <td>{item.discount}</td>
+      <td>
+        <button className="btn btn-outline-info me-1">
+          <i className="fas fa-pen px-1"></i>Edit
+        </button>
+        <button className="btn btn-outline-danger">
+          <i className="fas fa-trash pe-1"></i>Delete
+        </button>
+      </td>
+    </tr>
+  ));
+  ////////////////////////////////////////////////////////////////////////////
+
   //Get The Data From the Server
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  ////////////////////////
   return (
     <>
       <div id="content">
@@ -40,58 +66,7 @@ function Products() {
               </td>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <img
-                  src="/src/assets/images/download.jpg"
-                  className="imgPro py-2"
-                  alt=""
-                />
-              </td>
-              <td className="text-info">Vita-B</td>
-              <td className="max">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae
-                praesentium neque
-              </td>
-              <td>Loremipsum.</td>
-              <td>1222</td>
-              <td>100</td>
-              <td>
-                <button className="btn btn-outline-info me-1">
-                  <i className="fas fa-pen px-1"></i>Edit
-                </button>
-                <button className="btn btn-outline-danger">
-                  <i className="fas fa-trash pe-1"></i>Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img
-                  src="/src/assets/images/vite_c.jpg"
-                  className="imgPro py-2"
-                  alt=""
-                />
-              </td>
-              <td className="text-info">Vita-c</td>
-              <td className="max">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae
-                praesentium neque
-              </td>
-              <td>Loremipsum.</td>
-              <td>1222</td>
-              <td>100</td>
-              <td>
-                <button className="btn btn-outline-info me-1">
-                  <i className="fas fa-pen px-1"></i>Edit
-                </button>
-                <button className="btn btn-outline-danger">
-                  <i className="fas fa-trash pe-1"></i>Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody>{showData}</tbody>
         </table>
       </div>
     </>

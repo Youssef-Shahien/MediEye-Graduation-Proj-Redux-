@@ -9,7 +9,6 @@ export const getProducts = createAsyncThunk(
     try {
       const res = await fetch("http://localhost:3006/products");
       const data = await res.json();
-      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -25,9 +24,18 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // GetProducts
-      .addCase(getProducts.pending, (state, action) => {})
-      .addCase(getProducts.fulfilled, (state, action) => {})
-      .addCase(getProducts.rejected, (state, action) => {});
+      .addCase(getProducts.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products = action.payload;
+      })
+      .addCase(getProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
   },
 });
 
