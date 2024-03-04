@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "2",
       "name": "vita-B",
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
       "category": "Loremipsum",
@@ -10,7 +10,7 @@
       "image": "https://images.pexels.com/photos/2919591/pexels-photo-2919591.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "vita-c",
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
       "category": "Loremipsum",

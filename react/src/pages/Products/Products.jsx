@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getProducts } from "../../store/ProductsSlice";
+import { deleteProducts, getProducts } from "../../store/ProductsSlice";
 function Products() {
   const { products, isLoading, error } = useSelector((state) => state.products);
-  console.log(isLoading);
   const dispatch = useDispatch();
 
   /////////////////////Map on the Data and Show it there /////////////////////////////////////
@@ -25,7 +24,10 @@ function Products() {
             <button className="btn btn-outline-info me-1">
               <i className="fas fa-pen px-1"></i>Edit
             </button>
-            <button className="btn btn-outline-danger">
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => dispatch(deleteProducts(item))}
+            >
               <i className="fas fa-trash pe-1"></i>Delete
             </button>
           </td>
