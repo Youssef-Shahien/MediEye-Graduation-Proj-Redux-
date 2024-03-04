@@ -1,0 +1,65 @@
+{
+  "hash": "b79820be",
+  "browserHash": "bdf56ddf",
+  "optimized": {
+    "@fortawesome/free-solid-svg-icons": {
+      "src": "../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
+      "file": "@fortawesome_free-solid-svg-icons.js",
+      "fileHash": "346642b2",
+      "needsInterop": false
+    },
+    "@fortawesome/react-fontawesome": {
+      "src": "../../node_modules/@fortawesome/react-fontawesome/index.es.js",
+      "file": "@fortawesome_react-fontawesome.js",
+      "fileHash": "ca74eef5",
+      "needsInterop": false
+    },
+    "bootstrap/dist/js/bootstrap.bundle.js": {
+      "src": "../../node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+      "file": "bootstrap_dist_js_bootstrap__bundle__js.js",
+      "fileHash": "00f173fe",
+      "needsInterop": true
+    },
+    "formik": {
+      "src": "../../node_modules/formik/dist/formik.esm.js",
+      "file": "formik.js",
+      "fileHash": "7e4cc64f",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "0adbf64f",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "3b88949e",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "d0d9a017",
+      "needsInterop": false
+    },
+    "yup": {
+      "src": "../../node_modules/yup/index.esm.js",
+      "file": "yup.js",
+      "fileHash": "9ed20ecb",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-UCPK3CVF": {
+      "file": "chunk-UCPK3CVF.js"
+    },
+    "chunk-ST3U5LCA": {
+      "file": "chunk-ST3U5LCA.js"
+    },
+    "chunk-DFKQJ226": {
+      "file": "chunk-DFKQJ226.js"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+.table_titles {
+  margin-top: 10px;
+}
+.table_titles ul {
+  display: flex;
+  align-items: center;
+  gap: 85px;
+  position: relative;
+}
+.table_titles ul li {
+  list-style: none;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.table_titles ul li.active::after {
+  content: " ";
+  position: absolute;
+  height: 3px;
+  width: 120px;
+  background-color: #70bbf2;
+  bottom: -12px;
+  left: -10px;
+}
+.table_titles ul li span {
+  background-color: #ababab;
+  color: white;
+  border-radius: 5px;
+  padding: 0px 4px;
+  font-size: 14px;
+  margin-left: 8px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 0.3s;
+}
+.table_titles ul li span.active {
+  background-color: #ff6f03;
+}
+.showing_result p {
+  color: #ababab;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.showing_result p span {
+  background-color: #eee;
+  padding: 5px 25px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+}
+
+.my_check {
+  width: 18px;
+  height: 18px;
+  margin-top: 50%;
+  transform: translateY(-50%);
+}
+/*Start Status td */
+.complete,
+.new_order,
+.rejected {
+  width: 100px;
+  display: inline-block;
+  text-align: center;
+  height: 30px;
+  border-radius: 15px;
+  padding: 2px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.complete {
+  background-color: #dcfdd4;
+  color: #4fac16;
+}
+.complete:hover {
+  background-color: #afcaa9;
+  color: #37790f;
+}
+.new_order {
+  background-color: #fafdd4;
+  color: #ac9d16;
+}
+.new_order:hover {
+  background-color: #c7caa9;
+  color: #d2bf1a;
+}
+.rejected {
+  background-color: #fdd4d4;
+  color: #ac1616;
+}
+.rejected:hover {
+  background-color: #caa9a9;
+  color: #d21a1a;
+}
+.status {
+  position: relative;
+  transition: 0.4s;
+}
+.status .status_board {
+  display: none;
+}
+.status .active_status_board {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 25px;
+  transition: 0.4s;
+}
+
+/*End Status td */

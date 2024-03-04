@@ -1,0 +1,33 @@
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.parent {
+  background-image: url(../../assets/images/login-background.jpg);
+  height: calc(100vh - 56px);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center !important;
+}
+.login-card {
+  animation: slide-up 0.5s ease forwards;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center !important;
+  margin-right: 8%;
+
+}
+@media (max-width: 768px) {
+  .w-card {
+    justify-content: center;
+    margin-right: 0px;
+  }
+}

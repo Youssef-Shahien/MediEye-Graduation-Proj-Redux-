@@ -1,0 +1,30 @@
+.start-90{
+    left: 90%;
+    padding: 10px 38px !important;
+}
+.btn1{
+    padding: 0;
+}
+.max{
+    max-width: 150px !important;
+}
+/* width="200px" height="150px" */
+.imgPro{
+    width: 200px !important;
+    height: 150px !important;
+    margin-right: 0 !important;
+}
+tr{
+    gap: 10px !important;
+    margin: 10px 0 !important;
+}
+.top-15 {
+    top: 15% !important;
+}
+.start-40{
+    left: 40%;
+}
+input,select{
+    padding-left: 10px !important;
+    padding: 10px 0 !important;
+}

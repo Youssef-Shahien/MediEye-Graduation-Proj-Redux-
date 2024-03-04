@@ -1,0 +1,19 @@
+@keyframes slide-up {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+.welcome{
+    background-image: url(../../assets/images/welcome-background.png);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.wel_card {
+    animation: slide-up 0.5s ease forwards;
+  }

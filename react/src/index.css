@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+Zanabazar+Square&display=swap");
+:root {
+  --main-color: #29abe2;
+  --hover-color: #1b7195;
+  --section-padding: 100px;
+  /* overflow: hidden; */
+  overflow-x: hidden;
+}
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+/* Button Style */
+.button {
+  background-color: var(--main-color) !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+.button:hover {
+  background-color: var(--hover-color) !important;
+}
+/* Logo */
+.logo {
+  color: var(--main-color) !important;
+}
+.btn-focus:focus {
+  border: 1px solid var(--main-color) !important;
+  transition: 0.2s;
+}
+/* Login Card */
+@media (max-width: 776px) {
+  .login-card {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+}
+.error{
+  color: #e21818;
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
