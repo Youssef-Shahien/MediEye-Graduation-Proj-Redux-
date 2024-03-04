@@ -5,28 +5,39 @@ import { NavLink } from "react-router-dom";
 import { getProducts } from "../../store/ProductsSlice";
 function Products() {
   const { products, isLoading, error } = useSelector((state) => state.products);
+  console.log(isLoading);
   const dispatch = useDispatch();
+
   /////////////////////Map on the Data and Show it there /////////////////////////////////////
-  const showData = products.map((item) => (
-    <tr key={item.id}>
-      <td>
-        <img src={item.image} className="imgPro py-2" alt="" />
-      </td>
-      <td className="text-info">{item.name}</td>
-      <td className="max">{item.description}</td>
-      <td>Loremipsum.</td>
-      <td>{item.price}</td>
-      <td>{item.discount}</td>
-      <td>
-        <button className="btn btn-outline-info me-1">
-          <i className="fas fa-pen px-1"></i>Edit
-        </button>
-        <button className="btn btn-outline-danger">
-          <i className="fas fa-trash pe-1"></i>Delete
-        </button>
-      </td>
-    </tr>
-  ));
+  const showData =
+    products.length > 0 ? (
+      products.map((item) => (
+        <tr key={item.id}>
+          <td>
+            <img src={item.image} className="imgPro py-2" alt="" />
+          </td>
+          <td className="text-info">{item.name}</td>
+          <td className="max">{item.description}</td>
+          <td>Loremipsum.</td>
+          <td>{item.price}</td>
+          <td>{item.discount}</td>
+          <td>
+            <button className="btn btn-outline-info me-1">
+              <i className="fas fa-pen px-1"></i>Edit
+            </button>
+            <button className="btn btn-outline-danger">
+              <i className="fas fa-trash pe-1"></i>Delete
+            </button>
+          </td>
+        </tr>
+      ))
+    ) : (
+      <tr>
+        <td colSpan="7">
+          <h4>There isn't Data There.....</h4>
+        </td>
+      </tr>
+    );
   ////////////////////////////////////////////////////////////////////////////
 
   //Get The Data From the Server
@@ -66,7 +77,17 @@ function Products() {
               </td>
             </tr>
           </thead>
-          <tbody>{showData}</tbody>
+          <tbody>
+            {isLoading ? (
+              <tr>
+                <td colSpan="7">
+                  <h4>"Wait Please Dont Close The Page"</h4>
+                </td>
+              </tr>
+            ) : (
+              showData
+            )}
+          </tbody>
         </table>
       </div>
     </>
