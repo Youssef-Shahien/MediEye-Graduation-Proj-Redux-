@@ -2,18 +2,20 @@
   "products": [
     {
       "id": "2",
+      "category": "Loremipsum",
       "name": "vita-B",
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
-      "category": "Loremipsum",
+      "Effective Material": "",
       "price": 120,
       "discount": 100,
       "image": "https://images.pexels.com/photos/2919591/pexels-photo-2919591.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
-      "id": "2",
+      "id": "3",
+      "category": "Loremipsum",
       "name": "vita-c",
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
-      "category": "Loremipsum",
+      "Effective Material": "",
       "price": 180,
       "discount": 100,
       "image": "https://images.pexels.com/photos/4046659/pexels-photo-4046659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"

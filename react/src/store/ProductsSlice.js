@@ -34,6 +34,27 @@ export const deleteProducts = createAsyncThunk(
     }
   }
 );
+//////////////// InsertProducts Action //////////////
+
+export const insertProducts = createAsyncThunk(
+  "products/insertProducts",
+  async (productData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await fetch("http://localhost:3006/products", {
+        method: "POST",
+        body: JSON.stringify(productData),
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 //////////////////// createSlice Reducer ///////////////
 
@@ -67,6 +88,19 @@ const productsSlice = createSlice({
         );
       })
       .addCase(deleteProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // InsertProduct
+      .addCase(insertProducts.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(insertProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products.push(action.payload);
+      })
+      .addCase(insertProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

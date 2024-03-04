@@ -20,9 +20,11 @@ function Orders() {
       <h3 className="mb-3">My Orders</h3>
       {/* Start Search Bar*/}
       <div className="seach position-relative">
-      <input type="text" class="form-control  "/>
-      <button className="position-absolute start-90 text-light top-0 btn btn-info">Search</button>
-    </div>
+        <input type="text" className="form-control  " />
+        <button className="position-absolute start-90 text-light top-0 btn btn-info">
+          Search
+        </button>
+      </div>
       {/* End Search Bar*/}
       {/* Start Table Titles */}
       <div className={`${style.table_titles} mt-4`}>
