@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRef } from "react";
 import "./Upload.css";
-import { useDispatch } from "react-redux";
-import { insertProducts } from "../../store/ProductsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { editProduct, insertProducts } from "../../store/ProductsSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+
 function Upload() {
+  // variables////////////////////////
+  const { editReport, edit } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // variables
   const category = useRef();
   const name = useRef();
   const description = useRef();
@@ -16,10 +18,11 @@ function Upload() {
   const price = useRef();
   const discount = useRef();
   const image = useRef();
-  // form handler
+  // form handler////////////////////////;
   const submitHandler = (e) => {
     e.preventDefault();
     const data = {
+      id: edit && edit.id,
       category: category.current.value,
       name: name.current.value,
       description: description.current.value,
@@ -28,10 +31,12 @@ function Upload() {
       discount: discount.current.value,
       image: image.current.value,
     };
-    // Check if any input value is empty
-    const isAnyInputEmpty = Object.values(data).some(
-      (value) => value.trim() === ""
-    );
+    const isAnyInputEmpty = Object.keys(data).some((key) => {
+      if (key === "id") {
+        return false; // Skip checking the 'id' field
+      }
+      return data[key].trim() === "";
+    });
 
     if (isAnyInputEmpty) {
       // Display an error message or handle the empty input case
@@ -42,8 +47,14 @@ function Upload() {
       });
       return;
     }
+
     // All inputs are filled, dispatch the action
-    dispatch(insertProducts(data));
+    if (editReport === true) {
+      dispatch(editProduct(data));
+      dispatch({ type: "Edit_Product_Temp" });
+    } else {
+      dispatch(insertProducts(data));
+    }
     // Reset input values
     category.current.value = null;
     name.current.value = null;
@@ -52,8 +63,10 @@ function Upload() {
     price.current.value = null;
     discount.current.value = null;
     image.current.value = null;
+    //Navigate to product Page
     navigate("/layout/product");
   };
+
   return (
     <>
       <div className="container ">
@@ -65,7 +78,7 @@ function Upload() {
             <select
               className="form-control ps-2"
               id="exampleInputSelect"
-              defaultValue="default"
+              defaultValue={edit ? edit.category : ""}
               ref={category}
             >
               <option value="default" disabled className=" text-secondary">
@@ -85,6 +98,7 @@ function Upload() {
               type="text"
               className="form-control"
               id="exampleInputName"
+              defaultValue={edit ? edit.name : ""}
               ref={name}
             />
           </div>
@@ -96,6 +110,7 @@ function Upload() {
               type="text"
               className="form-control"
               id="exampleInputDes"
+              defaultValue={edit ? edit.description : ""}
               ref={description}
             />
           </div>
@@ -107,6 +122,7 @@ function Upload() {
               type="text"
               className="form-control"
               id="exampleInputMat"
+              defaultValue={edit ? edit.effectiveMaterial : ""}
               ref={effectiveMaterial}
             />
           </div>
@@ -115,9 +131,10 @@ function Upload() {
               Price
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="exampleInputPrice"
+              defaultValue={edit ? edit.price : ""}
               ref={price}
             />
           </div>
@@ -126,9 +143,10 @@ function Upload() {
               Discount
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="exampleInputCount"
+              defaultValue={edit ? edit.discount : ""}
               ref={discount}
             />
           </div>
@@ -142,6 +160,7 @@ function Upload() {
               rows="10"
               className="form-control "
               id="exampleInputImag"
+              defaultValue={edit ? edit.image : ""}
               ref={image}
             ></textarea>
             <img
@@ -150,9 +169,12 @@ function Upload() {
               alt=""
             />
           </div>
-
-          <button type="submit" className="btn btn-info text-light px-3">
-            Add
+          <button
+            type="submit"
+            className="btn btn-info text-light px-3"
+            // onClick={EditProductHandler}
+          >
+            {editReport ? "Edit" : "Add"}
           </button>
         </form>
       </div>

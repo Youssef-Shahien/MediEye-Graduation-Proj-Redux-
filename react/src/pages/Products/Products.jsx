@@ -1,12 +1,27 @@
 import React, { useEffect } from "react";
 import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { deleteProducts, getProducts } from "../../store/ProductsSlice";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  deleteProducts,
+  // editProduct,
+  getProducts,
+} from "../../store/ProductsSlice";
 function Products() {
-  const { products, isLoading, error } = useSelector((state) => state.products);
+  const navigate = useNavigate();
+  const { products, isLoading, error, editReport } = useSelector(
+    (state) => state.products
+  );
   const dispatch = useDispatch();
-
+  /////////////////////////////////////////////////////////////////////
+  // Edit Function to Handle Data & Navigation
+  const editHandler = (item) => {
+    if (editReport === false) {
+      dispatch({ type: "Edit_Product_Temp", payload: item });
+    }
+    navigate("/layout/upload");
+  };
+  /////////////////////////////////////////////////////////////////////
   /////////////////////Map on the Data and Show it there /////////////////////////////////////
   const showData =
     products.length > 0 ? (
@@ -17,11 +32,14 @@ function Products() {
           </td>
           <td className="text-info">{item.name}</td>
           <td className="max">{item.description}</td>
-          <td>Loremipsum.</td>
-          <td>{item.price}</td>
+          <td>{item.category}</td>
+          <td>{item.price} EGP</td>
           <td>{item.discount}</td>
           <td>
-            <button className="btn btn-outline-info me-1">
+            <button
+              className="btn btn-outline-info me-1"
+              onClick={() => editHandler(item)}
+            >
               <i className="fas fa-pen px-1"></i>Edit
             </button>
             <button

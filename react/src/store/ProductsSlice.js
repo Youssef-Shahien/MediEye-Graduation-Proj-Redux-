@@ -55,12 +55,45 @@ export const insertProducts = createAsyncThunk(
     }
   }
 );
+//////////////// EditProduct Action //////////////
+
+export const editProduct = createAsyncThunk(
+  "products/editProduct",
+  async (productData, thunkAPI) => {
+    console.log(productData);
+    console.log(productData.id);
+    const { rejectWithValue, dispatch } = thunkAPI;
+    try {
+      const res = await fetch(
+        `http://localhost:3006/products/${productData.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(productData),
+          headers: {
+            "content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+      const data = await res.json();
+      dispatch(getProducts());
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 //////////////////// createSlice Reducer ///////////////
 
 const productsSlice = createSlice({
   name: "products",
-  initialState: { products: [], isLoading: false, error: null },
+  initialState: {
+    products: [],
+    isLoading: false,
+    error: null,
+    edit: [],
+    editReport: false,
+  },
   extraReducers: (builder) => {
     builder
       // GetProducts
@@ -103,6 +136,23 @@ const productsSlice = createSlice({
       .addCase(insertProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      // EditProduct
+      .addCase(editProduct.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(editProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(editProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // EditProduct
+      .addCase("Edit_Product_Temp", (state, action) => {
+        state.editReport = !state.editReport;
+        state.edit = action.payload;
       });
   },
 });

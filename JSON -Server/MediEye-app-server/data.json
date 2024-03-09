@@ -12,13 +12,53 @@
     },
     {
       "id": "3",
-      "category": "Loremipsum",
+      "category": "option1",
       "name": "vita-c",
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
-      "Effective Material": "",
-      "price": 180,
-      "discount": 100,
+      "effectiveMaterial": "none",
+      "price": "180",
+      "discount": "100",
       "image": "https://images.pexels.com/photos/4046659/pexels-photo-4046659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      "id": "55b4",
+      "category": "option1",
+      "name": "Zincitrone",
+      "description": "G-3",
+      "effectiveMaterial": "Zinc",
+      "price": "125",
+      "discount": "260",
+      "image": "https://media.istockphoto.com/id/1376150725/photo/focus-on-chemical-element-zinc-illuminated-in-periodic-table-of-elements-3d-rendering.webp?s=2048x2048&w=is&k=20&c=yr8iIwxnmpW0rv1ZrxWsyQtyDrH33NdF9_O1K3HohaA="
+    },
+    {
+      "id": "a65d",
+      "category": "option1",
+      "name": "vita-max",
+      "description": "For Calcium",
+      "effectiveMaterial": "C",
+      "price": "255",
+      "discount": "10",
+      "image": "https://5.imimg.com/data5/SELLER/Default/2023/5/304613119/XJ/HK/OH/14344946/calcium-carbonate-magnesium-zinc-vitamin-d3-suspension-1000x1000.jpeg"
+    },
+    {
+      "id": "1e86",
+      "category": "option4",
+      "name": "xisrone",
+      "description": "modad hayawy",
+      "effectiveMaterial": "xxx-597",
+      "price": "180",
+      "discount": "0.00",
+      "image": "https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      "id": "4525",
+      "category": "option2",
+      "name": "dolipran",
+      "description": "qawyy gedan",
+      "effectiveMaterial": "very very good",
+      "price": "560",
+      "discount": "100",
+      "image": "https://images.pexels.com/photos/3873150/pexels-photo-3873150.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
     }
   ]
 }
