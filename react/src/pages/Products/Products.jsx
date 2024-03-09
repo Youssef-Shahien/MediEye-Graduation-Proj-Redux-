@@ -12,6 +12,7 @@ function Products() {
   const { products, isLoading, error, editReport } = useSelector(
     (state) => state.products
   );
+  console.log(error);
   const dispatch = useDispatch();
   /////////////////////////////////////////////////////////////////////
   // Edit Function to Handle Data & Navigation
@@ -24,40 +25,51 @@ function Products() {
   /////////////////////////////////////////////////////////////////////
   /////////////////////Map on the Data and Show it there /////////////////////////////////////
   const showData =
-    products.length > 0 ? (
-      products.map((item) => (
-        <tr key={item.id}>
-          <td>
-            <img src={item.image} className="imgPro py-2" alt="" />
-          </td>
-          <td className="text-info">{item.name}</td>
-          <td className="max">{item.description}</td>
-          <td>{item.category}</td>
-          <td>{item.price} EGP</td>
-          <td>{item.discount}</td>
-          <td>
-            <button
-              className="btn btn-outline-info me-1"
-              onClick={() => editHandler(item)}
-            >
-              <i className="fas fa-pen px-1"></i>Edit
-            </button>
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => dispatch(deleteProducts(item))}
-            >
-              <i className="fas fa-trash pe-1"></i>Delete
-            </button>
+    error === null ? (
+      products.length > 0 ? (
+        products.map((item) => (
+          <tr key={item.id}>
+            <td>
+              <img src={item.image} className="imgPro py-2" alt="" />
+            </td>
+            <td className="text-info">{item.name}</td>
+            <td className="max">{item.description}</td>
+            <td>{item.category}</td>
+            <td>{item.price} EGP</td>
+            <td>{item.discount}</td>
+            <td>
+              <button
+                className="btn btn-outline-info me-1"
+                onClick={() => editHandler(item)}
+              >
+                <i className="fas fa-pen px-1"></i>Edit
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => dispatch(deleteProducts(item))}
+              >
+                <i className="fas fa-trash pe-1"></i>Delete
+              </button>
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="7">
+            <h4>There isn't Data There.....</h4>
           </td>
         </tr>
-      ))
+      )
     ) : (
       <tr>
         <td colSpan="7">
-          <h4>There isn't Data There.....</h4>
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
         </td>
       </tr>
     );
+
   ////////////////////////////////////////////////////////////////////////////
 
   //Get The Data From the Server

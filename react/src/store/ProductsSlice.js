@@ -60,8 +60,6 @@ export const insertProducts = createAsyncThunk(
 export const editProduct = createAsyncThunk(
   "products/editProduct",
   async (productData, thunkAPI) => {
-    console.log(productData);
-    console.log(productData.id);
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
       const res = await fetch(
