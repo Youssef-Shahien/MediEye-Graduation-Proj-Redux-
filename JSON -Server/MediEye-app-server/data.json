@@ -47,18 +47,34 @@
       "description": "modad hayawy",
       "effectiveMaterial": "xxx-597",
       "price": "180",
-      "discount": "0.00",
+      "discount": "15",
       "image": "https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "userName": "Hassan",
+      "email": "hassan@gmail.com",
+      "password": "hassan123",
+      "phone": "01234567889",
+      "role": "SuperAdmin"
     },
     {
-      "id": "4525",
-      "category": "option2",
-      "name": "dolipran",
-      "description": "qawyy gedan",
-      "effectiveMaterial": "very very good",
-      "price": "560",
-      "discount": "100",
-      "image": "https://images.pexels.com/photos/3873150/pexels-photo-3873150.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+      "id": "2",
+      "userName": "Youssef",
+      "email": "youssef@gmail.com",
+      "password": "youssef123",
+      "phone": "01234567889",
+      "role": "Admin"
+    },
+    {
+      "id": "3",
+      "userName": "Menna",
+      "email": "menna@gmail.com",
+      "password": "menna123",
+      "phone": "01234567889",
+      "role": "User"
     }
   ]
 }
