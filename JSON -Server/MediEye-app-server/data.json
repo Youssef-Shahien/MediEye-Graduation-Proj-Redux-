@@ -75,6 +75,14 @@
       "password": "menna123",
       "phone": "01234567889",
       "role": "User"
+    },
+    {
+      "id": "b1bf",
+      "userName": "fsdfdsf",
+      "email": "youssefshahien156@gmail.com",
+      "password": "Youssef123",
+      "phone": "122222222",
+      "role": "Admin"
     }
   ]
 }
