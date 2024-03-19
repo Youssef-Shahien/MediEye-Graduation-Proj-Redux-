@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { insertUsers } from "../../store/UserSlice";
+import { editUsers, insertUsers } from "../../store/UserSlice";
 const AddUser = () => {
   const userName = useRef("");
   const email = useRef("");
@@ -11,9 +11,12 @@ const AddUser = () => {
   const role = useRef("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userEdit, userEditReport } = useSelector((state) => state.users);
+  ////////////////////////////////////////////////////////////////////////////////////////////
   const insertUserHandler = (e) => {
     e.preventDefault();
     const data = {
+      id: userEdit && userEdit.id,
       userName: userName.current.value,
       email: email.current.value,
       password: password.current.value,
@@ -37,7 +40,12 @@ const AddUser = () => {
       return;
     }
     // Send Data
-    dispatch(insertUsers(data));
+    if (userEditReport === true) {
+      dispatch(editUsers(data));
+      dispatch({ type: "Edit_User_Temp" });
+    } else {
+      dispatch(insertUsers(data));
+    }
     // Reset input values
     userName.current.value = null;
     email.current.value = null;
@@ -47,6 +55,7 @@ const AddUser = () => {
     //Navigate to product Page
     navigate("/layout/users");
   };
+  ////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <div className="container ">
       <form className="py-4" onSubmit={insertUserHandler}>
@@ -54,37 +63,44 @@ const AddUser = () => {
           type="text"
           className="form-control mb-3 ps-3"
           placeholder="user Name"
+          defaultValue={userEdit ? userEdit.userName : ""}
           ref={userName}
         />
         <input
           type="email"
           className="form-control mb-3 ps-3"
           placeholder="Email"
+          defaultValue={userEdit ? userEdit.email : ""}
           ref={email}
         />
         <input
           type="password"
           className="form-control mb-3 ps-3"
           placeholder="Password"
+          defaultValue={userEdit ? userEdit.password : ""}
           ref={password}
         />
         <input
           type="phone"
           className="form-control mb-3 ps-3"
           placeholder="phone"
+          defaultValue={userEdit ? userEdit.phone : ""}
           ref={phone}
         />
-        <select className="form-control ps-3 mb-4 text-secondary" ref={role}>
+        <select
+          className="form-control ps-3 mb-4 text-secondary"
+          defaultValue={userEdit ? userEdit.role : ""}
+          ref={role}
+        >
           <option value="default" disabled className=" text-secondary">
             Select role
           </option>
-          <option>User</option>
           <option>Admin</option>
-          <option>SuperAdmin</option>
+          <option>User</option>
         </select>
 
         <button type="submit" className="btn btn-info text-light px-3">
-          Add
+          {userEditReport ? "Edit" : "Add"}
         </button>
       </form>
     </div>

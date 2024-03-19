@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import "./User.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUsers, getUsers } from "../../store/UserSlice";
 const User = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { users, error, isLoading } = useSelector((state) => state.users);
+  // Edit UserHadnler
+  const editHadnler = (userData) => {
+    dispatch({ type: "Edit_User_Temp", payload: userData });
+    navigate("/layout/adduser");
+  };
   // Get The Data
   useEffect(() => {
     dispatch(getUsers());
@@ -19,7 +25,10 @@ const User = () => {
         <td className="ps-3">{user.email}</td>
         <td className="ps-3">{user.role}</td>
         <td className="ps-2">
-          <button className="btn btn-outline-info me-4">
+          <button
+            className="btn btn-outline-info me-4"
+            onClick={() => editHadnler(user)}
+          >
             <i className="fas fa-pen px-1"></i>Edit
           </button>
           <button className="btn btn-outline-info me-4">

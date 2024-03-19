@@ -58,12 +58,12 @@
       "email": "hassan@gmail.com",
       "password": "hassan123",
       "phone": "01234567889",
-      "role": "SuperAdmin"
+      "role": "Admin"
     },
     {
       "id": "2",
       "userName": "Youssef",
-      "email": "youssef@gmail.com",
+      "email": "youssefshahien@gmail.com",
       "password": "youssef123",
       "phone": "01234567889",
       "role": "Admin"

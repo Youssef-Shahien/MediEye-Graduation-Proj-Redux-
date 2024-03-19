@@ -53,9 +53,37 @@ export const insertUsers = createAsyncThunk(
     }
   }
 );
+//////////////// EditUsers Action //////////////
+
+export const editUsers = createAsyncThunk(
+  "products/editUsers",
+  async (userData, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
+    try {
+      const res = await fetch(`http://localhost:3006/users/${userData.id}`, {
+        method: "PUT",
+        body: JSON.stringify(userData),
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const data = await res.json();
+      dispatch(getUsers());
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 const userSlice = createSlice({
   name: "users",
-  initialState: { users: [], error: null, isLoading: false },
+  initialState: {
+    users: [],
+    error: null,
+    isLoading: false,
+    userEdit: [],
+    userEditReport: false,
+  },
   extraReducers: (builder) => {
     builder
       //GetUsers
@@ -84,7 +112,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      // InsertProduct
+      // InsertUser
       .addCase(insertUsers.pending, (state, action) => {
         state.isLoading = true;
         state.error = null;
@@ -96,6 +124,23 @@ const userSlice = createSlice({
       .addCase(insertUsers.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      // EditUser
+      .addCase(editUsers.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(editUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(editUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      //EditUser Temp
+      .addCase("Edit_User_Temp", (state, action) => {
+        state.userEdit = action.payload;
+        state.userEditReport = !state.userEditReport;
       });
   },
 });
