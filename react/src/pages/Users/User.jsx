@@ -21,10 +21,10 @@ const User = () => {
     <tbody key={user.id}>
       <tr>
         <td className="px-5">{user.id}</td>
-        <td className="ps-3">{user.userName}</td>
+        <td className="ps-3">{user.user_name}</td>
         <td className="ps-3">{user.email}</td>
         <td className="ps-3">{user.role}</td>
-        <td className="ps-2">
+        <td className="ps-2 text-center">
           <button
             className="btn btn-outline-info me-4"
             onClick={() => editHadnler(user)}
@@ -76,7 +76,7 @@ const User = () => {
             <td scope="col" className="px-3">
               Role
             </td>
-            <td scope="col" colSpan="2" className="ps-5">
+            <td scope="col" colSpan="2" className="ps-5 text-center">
               Manage
             </td>
           </tr>

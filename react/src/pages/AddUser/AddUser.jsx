@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { editUsers, insertUsers } from "../../store/UserSlice";
 const AddUser = () => {
-  const userName = useRef("");
+  const user_name = useRef("");
   const email = useRef("");
   const password = useRef("");
   const phone = useRef("");
@@ -17,7 +17,7 @@ const AddUser = () => {
     e.preventDefault();
     const data = {
       id: userEdit && userEdit.id,
-      userName: userName.current.value,
+      user_name: user_name.current.value,
       email: email.current.value,
       password: password.current.value,
       phone: phone.current.value,
@@ -47,7 +47,7 @@ const AddUser = () => {
       dispatch(insertUsers(data));
     }
     // Reset input values
-    userName.current.value = null;
+    user_name.current.value = null;
     email.current.value = null;
     password.current.value = null;
     phone.current.value = null;
@@ -63,8 +63,8 @@ const AddUser = () => {
           type="text"
           className="form-control mb-3 ps-3"
           placeholder="user Name"
-          defaultValue={userEdit ? userEdit.userName : ""}
-          ref={userName}
+          defaultValue={userEdit ? userEdit.user_name : ""}
+          ref={user_name}
         />
         <input
           type="email"

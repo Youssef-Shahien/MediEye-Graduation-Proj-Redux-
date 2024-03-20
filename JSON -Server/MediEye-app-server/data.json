@@ -4,8 +4,9 @@
       "id": "2",
       "category": "Loremipsum",
       "name": "vita-B",
+      "code": 2605974,
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
-      "Effective Material": "",
+      "effective_material": "",
       "price": 120,
       "discount": 100,
       "image": "https://images.pexels.com/photos/2919591/pexels-photo-2919591.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -14,8 +15,9 @@
       "id": "3",
       "category": "option1",
       "name": "vita-c",
+      "code": 2605974,
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae praesentium neque",
-      "effectiveMaterial": "none",
+      "effective_material": "none",
       "price": "180",
       "discount": "100",
       "image": "https://images.pexels.com/photos/4046659/pexels-photo-4046659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -24,8 +26,9 @@
       "id": "55b4",
       "category": "option1",
       "name": "Zincitrone",
+      "code": 2605974,
       "description": "G-3",
-      "effectiveMaterial": "Zinc",
+      "effective_material": "Zinc",
       "price": "125",
       "discount": "260",
       "image": "https://media.istockphoto.com/id/1376150725/photo/focus-on-chemical-element-zinc-illuminated-in-periodic-table-of-elements-3d-rendering.webp?s=2048x2048&w=is&k=20&c=yr8iIwxnmpW0rv1ZrxWsyQtyDrH33NdF9_O1K3HohaA="
@@ -34,8 +37,9 @@
       "id": "a65d",
       "category": "option1",
       "name": "vita-max",
+      "code": 2605974,
       "description": "For Calcium",
-      "effectiveMaterial": "C",
+      "effective_material": "C",
       "price": "255",
       "discount": "10",
       "image": "https://5.imimg.com/data5/SELLER/Default/2023/5/304613119/XJ/HK/OH/14344946/calcium-carbonate-magnesium-zinc-vitamin-d3-suspension-1000x1000.jpeg"
@@ -44,8 +48,9 @@
       "id": "1e86",
       "category": "option4",
       "name": "xisrone",
+      "code": 2605974,
       "description": "modad hayawy",
-      "effectiveMaterial": "xxx-597",
+      "effective_material": "xxx-597",
       "price": "180",
       "discount": "15",
       "image": "https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -54,27 +59,63 @@
   "users": [
     {
       "id": "1",
-      "userName": "Hassan",
+      "user_name": "Hassan",
       "email": "hassan@gmail.com",
       "password": "hassan123",
       "phone": "01234567889",
-      "role": "Admin"
+      "role": "User"
     },
     {
       "id": "2",
-      "userName": "Youssef",
+      "user_name": "Youssef",
       "email": "youssefshahien@gmail.com",
       "password": "youssef123",
       "phone": "01234567889",
-      "role": "Admin"
+      "role": 1
     },
     {
       "id": "3",
-      "userName": "Menna",
+      "user_name": "Menna",
       "email": "menna@gmail.com",
       "password": "menna123",
       "phone": "01234567889",
-      "role": "User"
+      "role": 2
+    }
+  ],
+  "category": [
+    {
+      "id": "1",
+      "title": "Hassan",
+      "image": "hassan@gmail.com"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "product": "Hassan",
+      "customer": "hassan@gmail.com",
+      "number": "hassan@gmail.com",
+      "status": "New Order",
+      "created_at": "hassan@gmail.com",
+      "price": "hassan@gmail.com"
+    },
+    {
+      "id": "1",
+      "product": "Hassan",
+      "customer": "hassan@gmail.com",
+      "number": "hassan@gmail.com",
+      "status": "Complete",
+      "created_at": "hassan@gmail.com",
+      "price": "hassan@gmail.com"
+    },
+    {
+      "id": "1",
+      "product": "Hassan",
+      "customer": "hassan@gmail.com",
+      "number": "hassan@gmail.com",
+      "status": "Rejected",
+      "created_at": "hassan@gmail.com",
+      "price": "hassan@gmail.com"
     }
   ]
 }

@@ -12,7 +12,6 @@ function Products() {
   const { products, isLoading, error, editReport } = useSelector(
     (state) => state.products
   );
-  console.log(error);
   const dispatch = useDispatch();
   /////////////////////////////////////////////////////////////////////
   // Edit Function to Handle Data & Navigation
@@ -28,11 +27,12 @@ function Products() {
     error === null ? (
       products.length > 0 ? (
         products.map((item) => (
-          <tr key={item.id}>
+          <tr key={item.id} className="text-center">
             <td>
               <img src={item.image} className="imgPro py-2" alt="" />
             </td>
             <td className="text-info">{item.name}</td>
+            <td className="fw-bold">{item.code}</td>
             <td className="max">{item.description}</td>
             <td>{item.category}</td>
             <td>{item.price} EGP</td>
@@ -97,9 +97,10 @@ function Products() {
         </div>
         <table className="table table-striped my-3">
           <thead className="">
-            <tr className="border border-start-0 border-end-0 mb-1 text-secondary opacity-75">
+            <tr className="border border-start-0 border-end-0 mb-1 text-secondary opacity-75 text-center">
               <td scope="col">Image</td>
               <td scope="col">Name</td>
+              <td scope="col">Code</td>
               <td scope="col">Descripition</td>
               <td scope="col">Category</td>
               <td scope="col">Price</td>

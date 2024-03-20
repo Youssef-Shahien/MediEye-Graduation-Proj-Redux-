@@ -13,8 +13,9 @@ function Upload() {
   const dispatch = useDispatch();
   const category = useRef();
   const name = useRef();
+  const code = useRef();
   const description = useRef();
-  const effectiveMaterial = useRef();
+  const effective_material = useRef();
   const price = useRef();
   const discount = useRef();
   const image = useRef();
@@ -25,8 +26,9 @@ function Upload() {
       id: edit && edit.id,
       category: category.current.value,
       name: name.current.value,
+      code: code.current.value,
       description: description.current.value,
-      effectiveMaterial: effectiveMaterial.current.value,
+      effective_material: effective_material.current.value,
       price: price.current.value,
       discount: discount.current.value,
       image: image.current.value,
@@ -58,8 +60,9 @@ function Upload() {
     // Reset input values
     category.current.value = null;
     name.current.value = null;
+    code.current.value = null;
     description.current.value = null;
-    effectiveMaterial.current.value = null;
+    effective_material.current.value = null;
     price.current.value = null;
     discount.current.value = null;
     image.current.value = null;
@@ -103,6 +106,18 @@ function Upload() {
             />
           </div>
           <div className="mb-3">
+            <label htmlFor="exampleInputCode" className="form-label">
+              Code
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputCode"
+              defaultValue={edit ? edit.code : ""}
+              ref={code}
+            />
+          </div>
+          <div className="mb-3">
             <label htmlFor="exampleInputDes" className="form-label">
               Description
             </label>
@@ -122,8 +137,8 @@ function Upload() {
               type="text"
               className="form-control"
               id="exampleInputMat"
-              defaultValue={edit ? edit.effectiveMaterial : ""}
-              ref={effectiveMaterial}
+              defaultValue={edit ? edit.effective_material : ""}
+              ref={effective_material}
             />
           </div>
           <div className="mb-3">

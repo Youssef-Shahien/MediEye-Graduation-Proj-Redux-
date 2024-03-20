@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const api_url = "http://localhost:3006/products"
 //////////////// GetProducts Action //////////////
-
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch("http://localhost:3006/products");
+      const res = await fetch(api_url);
       const data = await res.json();
       return data;
     } catch (error) {
@@ -22,7 +22,7 @@ export const deleteProducts = createAsyncThunk(
   async (item, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      await fetch(`http://localhost:3006/products/${item.id}`, {
+      await fetch(`${api_url}/${item.id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
@@ -41,7 +41,7 @@ export const insertProducts = createAsyncThunk(
   async (productData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch("http://localhost:3006/products", {
+      const res = await fetch(api_url, {
         method: "POST",
         body: JSON.stringify(productData),
         headers: {
@@ -63,7 +63,7 @@ export const editProduct = createAsyncThunk(
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
       const res = await fetch(
-        `http://localhost:3006/products/${productData.id}`,
+        `${api_url}/${productData.id}`,
         {
           method: "PUT",
           body: JSON.stringify(productData),
