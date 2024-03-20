@@ -9,7 +9,7 @@ function SignUpFormFour() {
         <div className="login-card">
           <div className="card" style={{ width: "22rem" }}>
           <div className="card-body">
-            <h5 className="card-title logo text-center">MediMatch</h5>
+            <h5 className="card-title logo text-center">MediEye</h5>
             <h6 className="card-subtitle mb-2 text-body-secondary text-center fw-bold">
               Sign Up
             </h6>
