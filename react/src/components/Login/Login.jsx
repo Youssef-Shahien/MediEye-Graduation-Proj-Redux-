@@ -16,9 +16,9 @@ export default function Login() {
       <HeaderLogin />
       <div className="parent">
         <div className="login-card">
-        <div className="card rounded-4" style={{ width: "25rem" }}>
+        <div className="card rounded-4" style={{ width: "26rem" }}>
         <div className="card-body">
-          <h5 className="card-title logo text-center">MediMatch</h5>
+          <h5 className="card-title logo text-center">MediEye</h5>
           <h6 className="card-subtitle mb-2 text-body-secondary text-center">
             Login into Your Account
           </h6>
@@ -42,7 +42,7 @@ export default function Login() {
                 onChange={(e)=> setPass(e.target.value)}
                 />
             
-              <a href="#" className="text-danger text-small d-flex justify-content-end small text-decoration-none mb-3">forget the password?</a>
+              <Link to="/forgetPass" className="text-danger text-small d-flex justify-content-end small text-decoration-none mb-3">forget the password?</Link>
               <div>{err}</div>
               <button type="submit" className="btn button mb-1 form-control">
                 Log In

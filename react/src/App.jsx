@@ -19,6 +19,9 @@ import User from "./pages/Users/User.jsx";
 import AddUser from "./pages/AddUser/AddUser.jsx";
 import Categories from "./pages/Categories/Categories.jsx";
 import AddCates from "./pages/AddCates/AddCates.jsx";
+import ForgetPass from './components/ForgetPass/ForgetPass';
+import ForgetPassCode from "./components/ForgetPassCode/ForgetPassCode.jsx";
+import ResetPass from "./components/ResetPass/ResetPass.jsx";
 ////////////////////
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
@@ -97,6 +100,10 @@ function App() {
       ],
     },
     { path: "/login", element: <Login /> },
+    { path: "/forgetPass", element: <ForgetPass /> },
+    { path: "/forgetCode", element: <ForgetPassCode /> },
+    { path: "/ResetPass", element: <ResetPass /> },
+
     { path: "/signup", element: <Register /> },
     { path: "/signupTwo", element: <SignUpFormTwo /> },
     { path: "/signupThree", element: <SignUpFormThree /> },
