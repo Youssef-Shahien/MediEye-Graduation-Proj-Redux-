@@ -79,7 +79,6 @@
       "email": "menna@gmail.com",
       "password": "menna123",
       "phone": "01234567889",
-<<<<<<< HEAD
       "role": 2
     }
   ],
@@ -116,8 +115,7 @@
       "number": "hassan@gmail.com",
       "status": "Rejected",
       "created_at": "hassan@gmail.com",
-      "price": "hassan@gmail.com"
-=======
+      "price": "hassan@gmail.com",
       "role": "User"
     },
     {
@@ -127,7 +125,6 @@
       "password": "Youssef123",
       "phone": "122222222",
       "role": "Admin"
->>>>>>> Login-SignUp
     }
   ]
 }
