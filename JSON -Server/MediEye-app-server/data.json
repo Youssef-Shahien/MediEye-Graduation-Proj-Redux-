@@ -48,12 +48,12 @@
       "id": "1e86",
       "category": "option4",
       "name": "xisrone",
-      "code": 2605974,
+      "code": "2605974",
       "description": "modad hayawy",
       "effective_material": "xxx-597",
       "price": "180",
       "discount": "15",
-      "image": "https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      "image": "https://5.imimg.com/data5/SELLER/Default/2023/5/304613119/XJ/HK/OH/14344946/calcium-carbonate-magnesium-zinc-vitamin-d3-suspension-1000x1000.jpeg"
     }
   ],
   "users": [
@@ -71,7 +71,7 @@
       "email": "youssefshahien@gmail.com",
       "password": "youssef123",
       "phone": "01234567889",
-      "role": 1
+      "role": "User"
     },
     {
       "id": "3",
@@ -85,7 +85,7 @@
   "category": [
     {
       "id": "1",
-      "title": "medecine",
+      "title": "medecineaaa",
       "image": ""
     }
   ],

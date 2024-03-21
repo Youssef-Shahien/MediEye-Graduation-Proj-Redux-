@@ -142,7 +142,7 @@ const categorySlice = createSlice({
       })
       // EditCategories
       .addCase("Edit_Categories_Temp", (state, action) => {
-        state.catEditReport = !state.editReport;
+        state.catEditReport = !state.catEditReport;
         state.catEdit = action.payload;
       });
   },

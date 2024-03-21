@@ -8,13 +8,14 @@ import Swal from "sweetalert2";
 
 const handleFileUpload = (e) => {
   const file = e.target.files[0];
-  if (file.size <= 10485760) { // 10MB in bytes
+  if (file.size <= 10485760) {
+    // 10MB in bytes
     // File size is within the limit
-    console.log('File uploaded:', file);
+    console.log("File uploaded:", file);
     // Add your file upload logic here
   } else {
     // File size exceeds the limit
-    console.log('File size exceeds the limit (10MB)');
+    console.log("File size exceeds the limit (10MB)");
     // You can display an error message to the user
   }
 };
@@ -179,19 +180,17 @@ function Upload() {
             />
           </div>
           <div className="p-3 border border-1 text-center rounded-3">
-                    <label htmlFor="file-upload" className="fs-6 fw-bold" role="button"><img
-                    src="/src/assets/images/down.png"
-                    
-                    alt=""
-                  /></label>
-                    <input
-                      type="file"
-                      id="file-upload"
-                      onChange={handleFileUpload}
-                      style={{ display: 'none' }}
-                    />
-                    
-                  </div>
+            <label htmlFor="file-upload" className="fs-6 fw-bold" role="button">
+              <img src="/src/assets/images/down.png" alt="" />
+            </label>
+            <input
+              type="file"
+              id="file-upload"
+              onChange={handleFileUpload}
+              style={{ display: "none" }}
+              ref={image}
+            />
+          </div>
           <button
             type="submit"
             className="btn btn-info text-light px-3 mt-2"
