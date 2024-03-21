@@ -57,10 +57,10 @@ function SignUpFormThree() {
               />
             </div>
             <div className="d-flex flex-column gap-2">
-              <Link to="/login" type="submit" className="btn button">
+              <Link to="/signupFour" type="submit" className="btn button">
                 Next
               </Link>
-              <Link to="/signup" type="submit" className="btn button">
+              <Link to="/signupTwo" type="submit" className="btn button">
                 Back
               </Link>
             </div>

@@ -103,7 +103,7 @@ function SignUpFormTwo() {
                 )}
                 <div className="d-flex flex-column gap-2">
                   <button className="btn button" type="submit">
-                    Create account
+                    <Link to="/signupThree" className="text-decoration-none text-light">Create account</Link>
                   </button>
                   <p>
                     Already have account ?{" "}

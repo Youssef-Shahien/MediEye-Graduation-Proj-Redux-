@@ -16,7 +16,7 @@ export default function Login() {
       <HeaderLogin />
       <div className="parent">
         <div className="login-card">
-        <div className="card rounded-4" style={{ width: "25rem" }}>
+        <div className="card rounded-4" style={{ width: "26rem" }}>
         <div className="card-body">
           <h5 className="card-title logo text-center">MediEye</h5>
           <h6 className="card-subtitle mb-2 text-body-secondary text-center">

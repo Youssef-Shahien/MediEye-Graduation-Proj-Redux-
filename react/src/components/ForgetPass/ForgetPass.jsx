@@ -9,7 +9,7 @@ const ForgetPass = () => {
         <HeaderLogin />
         <div className="parent">
             <div className="login-card">
-                <div className="card rounded-4" style={{ width: "25rem" }}>
+                <div className="card rounded-4" style={{ width: "27rem" }}>
                     <div className="card-body p-3">
                         <h5 className="card-title logo text-center">MediEye</h5>
                         <h6 className="card-subtitle mb-2 text-dark w-800 text-center">
@@ -22,7 +22,9 @@ const ForgetPass = () => {
                                 placeholder="Phone"
                                 id="phone" />
                             <button type="submit" className="btn button mb-1 form-control">
-                                Send
+                            <Link to="/forgetCode" className=" text-light text-decoration-none">
+                            Send
+                            </Link>
                             </button>
                             <p className='py-2'>
                                 Already have an account 
