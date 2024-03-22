@@ -188,6 +188,7 @@ function Upload() {
               id="file-upload"
               onChange={handleFileUpload}
               style={{ display: "none" }}
+              // defaultValue={edit ? edit.image : ""}
               ref={image}
             />
           </div>

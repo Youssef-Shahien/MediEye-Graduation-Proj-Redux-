@@ -23,17 +23,6 @@
       "image": "https://images.pexels.com/photos/4046659/pexels-photo-4046659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
-      "id": "55b4",
-      "category": "option1",
-      "name": "Zincitrone",
-      "code": 2605974,
-      "description": "G-3",
-      "effective_material": "Zinc",
-      "price": "125",
-      "discount": "260",
-      "image": "https://media.istockphoto.com/id/1376150725/photo/focus-on-chemical-element-zinc-illuminated-in-periodic-table-of-elements-3d-rendering.webp?s=2048x2048&w=is&k=20&c=yr8iIwxnmpW0rv1ZrxWsyQtyDrH33NdF9_O1K3HohaA="
-    },
-    {
       "id": "a65d",
       "category": "option1",
       "name": "vita-max",
@@ -42,17 +31,6 @@
       "effective_material": "C",
       "price": "255",
       "discount": "10",
-      "image": "https://5.imimg.com/data5/SELLER/Default/2023/5/304613119/XJ/HK/OH/14344946/calcium-carbonate-magnesium-zinc-vitamin-d3-suspension-1000x1000.jpeg"
-    },
-    {
-      "id": "1e86",
-      "category": "option4",
-      "name": "xisrone",
-      "code": "2605974",
-      "description": "modad hayawy",
-      "effective_material": "xxx-597",
-      "price": "180",
-      "discount": "15",
       "image": "https://5.imimg.com/data5/SELLER/Default/2023/5/304613119/XJ/HK/OH/14344946/calcium-carbonate-magnesium-zinc-vitamin-d3-suspension-1000x1000.jpeg"
     }
   ],
