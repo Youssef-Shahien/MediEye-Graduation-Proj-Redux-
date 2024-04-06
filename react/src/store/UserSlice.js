@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+const baseURL = "http://localhost:3006/users"
 //////////////// GetUsers Action //////////////
 export const getUsers = createAsyncThunk(
   "users/getUsers",
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch("http://localhost:3006/users");
+      const res = await fetch(baseURL);
       const data = await res.json();
       return data;
     } catch (error) {
@@ -20,7 +20,7 @@ export const deleteUsers = createAsyncThunk(
   async (user, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      await fetch(`http://localhost:3006/users/${user.id}`, {
+      await fetch(`${baseURL}/${user.id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
@@ -39,7 +39,7 @@ export const insertUsers = createAsyncThunk(
   async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch("http://localhost:3006/users", {
+      const res = await fetch(baseURL, {
         method: "POST",
         body: JSON.stringify(userData),
         headers: {
@@ -60,7 +60,7 @@ export const editUsers = createAsyncThunk(
   async (userData, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
-      const res = await fetch(`http://localhost:3006/users/${userData.id}`, {
+      const res = await fetch(`${baseURL}/${userData.id}`, {
         method: "PUT",
         body: JSON.stringify(userData),
         headers: {

@@ -1,17 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const api_url = "http://localhost:3006/category";
+
+//////////////////////////////////////////
+const token = "";
+const base_url = "https://d718-197-121-212-126.ngrok-free.app";
+const baseURL = `${base_url}/api`;
+// const baseURL = "http://localhost:3006";
 //////////////// GetCategory Action //////////////
 export const getCategory = createAsyncThunk(
   "category/getCategory",
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch(api_url);
-      const data = res.json();
+      const res = await fetch(`${baseURL}/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      console.log(data);
       return data;
     } catch (error) {
+      console.log(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -22,7 +33,7 @@ export const deleteCategory = createAsyncThunk(
   async (item, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      await fetch(`${api_url}/${item.id}`, {
+      await fetch(`${baseURL}/${item.id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
@@ -40,7 +51,7 @@ export const insertCategory = createAsyncThunk(
   async (categoryData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch(api_url, {
+      const res = await fetch(baseURL, {
         method: "POST",
         body: JSON.stringify(categoryData),
         headers: {
@@ -60,7 +71,7 @@ export const editCategory = createAsyncThunk(
   async (categoryData, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
-      const res = await fetch(`${api_url}/${categoryData.id}`, {
+      const res = await fetch(`${baseURL}/${categoryData.id}`, {
         method: "PUT",
         body: JSON.stringify(categoryData),
         headers: {

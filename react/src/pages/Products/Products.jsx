@@ -12,6 +12,7 @@ function Products() {
   const { products, isLoading, error, editReport } = useSelector(
     (state) => state.products
   );
+  console.log(products.products);
   const dispatch = useDispatch();
   /////////////////////////////////////////////////////////////////////
   // Edit Function to Handle Data & Navigation
@@ -25,8 +26,8 @@ function Products() {
   /////////////////////Map on the Data and Show it there /////////////////////////////////////
   const showData =
     error === null ? (
-      products.length > 0 ? (
-        products.map((item) => (
+      products.products && products.products.length > 0 ? (
+        products.products.map((item) => (
           <tr key={item.id} className="text-center">
             <td>
               <img src={item.image} className="imgPro py-2" alt="" />

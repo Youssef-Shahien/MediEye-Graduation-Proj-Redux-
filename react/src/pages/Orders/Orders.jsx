@@ -5,6 +5,7 @@ import {
   faChevronDown,
   faSquareCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 function Orders() {
   const arrowFont = <FontAwesomeIcon icon={faChevronDown} />;
@@ -14,7 +15,28 @@ function Orders() {
   const activeToggleHandler = (event) => {
     setIsActive(!isActive);
   };
-
+////////////////
+  const token =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiMzViMGE3MTdhYzljMmJiMzQwNDhkZjVlNzg0ZDJhZjZmMmE5M2I1MWFlZThlMTc1MmI0M2IzN2MwYWFiNmMxYzk5YTdiYzZjMjBhOGU0YWUiLCJpYXQiOjE3MTIyNzcwMzAuMDgzMDY2LCJuYmYiOjE3MTIyNzcwMzAuMDgzMDY4LCJleHAiOjE3MjgwODgyMjkuOTk2OTgzLCJzdWIiOiI2OCIsInNjb3BlcyI6W119.OppElsMS9M7oDRKYMo-Jzngup3N1i4s_hCXk4O9qGK7WKamEHfZoaWSZmqrzLmcTbg4bsyzUnWSUbc87rcnXkyvNi_udoxciUxl-romrr2o8GNe6M0NrmPqckWUZoXLWaW8cjhONZfWOypd08RJvjch2xFTvy9f-RfMJCfy5wJYe0CaHpUztv0pKBEs77NSM5IXXZqN4g4AcSx7AurIjDQ0sziZIazR04iTrU37gEzk73pH0wGKSlt0GSGSS1HvNGAjovr58L8Xvrd1p2ldQISLT8G3-tOZXit1pI3ueRXpyEEv-Wycn0pLdrNN53SlAz7pXmFlBT_abmH05ATqnganv1N6gpXb_LgnSy0mVdZB0O1BvXFWY3YxTx5gHI38_4NvjbvNRLgTl5Us1-Q-FQbjATnh_MrNspMZcaVPIB3WAQpy1Iw_k8C19zC_dFOk-ZY9JZPxBpKTPplyYK5XXsF1X331DvyLay0YBPsOSLPAQkY16rHhOkOZcRuMdadsAZ9o-otYg-GfiIlnrqhfsQl6Zk76R7DW5QgNafOYICO4ID-ez_uqVrmY84reFe9TM544OGQAEfMSjoulxCIsT2BV178X0i7mDrwyD7iDxl75GHt5D85t6W7e-u1jFFMnw8IbzLM9xc6Cn5Jao4AXTgObg1eeinMFSwLyUe3mUzKA";
+  const api_url =
+    "https://3aee-197-121-138-71.ngrok-free.app/api/products-Pharmacy";
+  axios
+    .get(api_url, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      // Handle the error
+      console.error(error);
+    });
+  ///////////////////////
   return (
     <div>
       <h3 className="mb-3">My Orders</h3>
