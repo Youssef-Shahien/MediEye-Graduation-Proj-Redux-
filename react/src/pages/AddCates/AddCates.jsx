@@ -6,6 +6,32 @@ import Swal from "sweetalert2";
 import { editCategory, insertCategory } from "../../store/CategorySlice";
 
 const AddCates = () => {
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+  
+    // Check if a file was selected
+    if (!file) {
+      console.error("No file selected.");
+      return;
+    }
+  
+    // Check if the file type is valid
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+    if (!allowedTypes.includes(file.type)) {
+      console.error("Invalid file type. Please upload an image file (jpeg, png, jpg, gif).");
+      return;
+    }
+  
+    // File type is valid, proceed with reading the file
+    reader.onload = () => {
+      const base64Image = reader.result;
+      // Store the base64Image in your component's state or use it directly in the image source
+    };
+  
+    reader.readAsDataURL(file);
+  };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { catEdit, catEditReport } = useSelector((state) => state.category);
@@ -74,6 +100,7 @@ const AddCates = () => {
             type="file"
             className="form-control border-0"
             id="exampleInputImage"
+            onChange={handleImageUpload}
             ref={image}
           />
         </div>

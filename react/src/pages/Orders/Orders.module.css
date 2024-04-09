@@ -110,5 +110,14 @@
   top: 25px;
   transition: 0.4s;
 }
-
+/* TR background colors*/
+.complete_order_tr {
+  background-color: hsla(97, 78%, 27%, 0.22);
+}
+.new_order_tr {
+  background-color: hsla(54, 77%, 38%, 0.22);
+}
+.rejected_order_tr {
+  background-color: hsla(0, 78%, 46%, 0.22);
+}
 /*End Status td */

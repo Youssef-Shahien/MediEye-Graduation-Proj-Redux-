@@ -26,8 +26,8 @@ function Products() {
   /////////////////////Map on the Data and Show it there /////////////////////////////////////
   const showData =
     error === null ? (
-      products.products && products.products.length > 0 ? (
-        products.products.map((item) => (
+      products && products.length > 0 ? (
+        products.map((item) => (
           <tr key={item.id} className="text-center">
             <td>
               <img src={item.image} className="imgPro py-2" alt="" />
@@ -35,7 +35,7 @@ function Products() {
             <td className="text-info">{item.name}</td>
             <td className="fw-bold">{item.code}</td>
             <td className="max">{item.description}</td>
-            <td>{item.category}</td>
+            <td>{item.category_title}</td>
             <td>{item.price} EGP</td>
             <td>{item.discount}</td>
             <td>

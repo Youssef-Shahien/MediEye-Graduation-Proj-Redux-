@@ -5,51 +5,60 @@ import "./Categories.css";
 import { deleteCategory, getCategory } from "../../store/CategorySlice";
 
 const Categories = () => {
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   const reader = new FileReader();
 
-  //   reader.onload = () => {
-  //     const base64Image = reader.result;
-  //     // Store the base64Image in your component's state or use it directly in the image source
-  //   };
-
-  //   reader.readAsDataURL(file);
-  // };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { category } = useSelector((state) => state.category);
+  const { category, isLoading, error } = useSelector((state) => state.category);
   // edit Handler Function
   const editCategoryHandler = (item) => {
     dispatch({ type: "Edit_Categories_Temp", payload: item });
     navigate("/layout/addcate");
   };
   //Map The Categories
-  const categoriesData = category.map((item) => (
-    <tr key={item.id}>
-      <td>{item.id}</td>
-      <td className="px-4">{item.title}</td>
-      <td className="px-2">
-        <img src={item.image} className="imgPro py-2" alt="" />
-      </td>
+  const categoriesData =
+    error === null ? (
+      category && category.length > 0 ? (
+        category.map((item) => (
+          <tr key={item.id}>
+            <td>{item.id}</td>
+            <td className="px-4">{item.title}</td>
+            <td className="px-2">
+              <img src={item.image} className="imgPro py-2" alt="" />
+            </td>
 
-      <td>
-        <button
-          className="btn btn-outline-info me-3"
-          onClick={() => editCategoryHandler(item)}
-        >
-          <i className="fas fa-pen px-1"></i>Edit
-        </button>
-        <button
-          className="btn btn-outline-danger"
-          onClick={() => dispatch(deleteCategory(item))}
-        >
-          <i className="fas fa-trash pe-1"></i>Delete
-        </button>
-      </td>
-    </tr>
-  ));
+            <td>
+              <button
+                className="btn btn-outline-info me-3"
+                onClick={() => editCategoryHandler(item)}
+              >
+                <i className="fas fa-pen px-1"></i>Edit
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => dispatch(deleteCategory(item))}
+              >
+                <i className="fas fa-trash pe-1"></i>Delete
+              </button>
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="7">
+            <h4>There isn't Data There.....</h4>
+          </td>
+        </tr>
+      )
+    ) : (
+      <tr>
+        <td colSpan="7">
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        </td>
+      </tr>
+    );
   // get Categories
   useEffect(() => {
     dispatch(getCategory());
@@ -87,7 +96,17 @@ const Categories = () => {
             </td>
           </tr>
         </thead>
-        <tbody>{categoriesData}</tbody>
+        <tbody>
+          {isLoading ? (
+            <tr>
+              <td colSpan="7">
+                <h4>"Wait Please Dont Close The Page"</h4>
+              </td>
+            </tr>
+          ) : (
+            categoriesData
+          )}
+        </tbody>
       </table>
     </div>
   );

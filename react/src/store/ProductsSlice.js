@@ -23,7 +23,7 @@ import axios from "axios";
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 const token =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiMzViZWM4YmIxNmIxZDVhYThlY2JlNGY5OWI5NThhNjQyNDNiMTAyMzhhMTYwNjI5YmY3NWJmNmQ4MTkwMjc2ODFjMTQ2N2M4YzdmMjBhMmMiLCJpYXQiOjE3MTIyOTAyNTEuMzAyNTE5LCJuYmYiOjE3MTIyOTAyNTEuMzAyNTIxLCJleHAiOjE3MjgxMDE0NTEuMjk0MjU2LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.dv3Hh15AIEPYqXb2Fx6qQUofmc2Jst_k6QE9oKYrUkl3mjavp_TPgOl8NNU2mw1ubLaWDwhqEPF7DPiP6gCqw3FrZ9pW43Vvs1WsPetXE3TsWyMTdva-J0xyuZ6jYXmWKCC-NIHXxI92Q2yMaX2ZqqSh7EBV60_-_Ldae1Ihdzhn1pv4xPZF4-fkwPqoL_CbaF7lcSGy6w2JSOe-pyTKczyIAxfKgbqln2mHuV78M1BH00sWJ8Ke8v0ji5qdhWayr5wGVTOQyOmWjBYbUvNQpvwGefdIMpd1tw7QCGije8FAWlyHxKv-zS4zRyYRKYJUE4gBOK5NzawQZHZ7z_jBAZVWCAKFSPDVOHji9PYweZiWxpWj2i7-L2ip9YmcoPN4A4bd54nQp831gSNIQmFuzpZJ5VrJYNPXsYdhgwHxKKWD5-fDmTC4jv2yfEtiSVBaeN68a08AV6fTd5WMyLAe9SklnGz2v0b4pfXNeCIvWZwMAblIjhztasixmAmByYrNJ3iZ31IXtZI8mMJtYrJ2GdR9HGsNPMW33_mb_NPVYIDrj0r2WSqsY354ySI8OA5i_iLN8f5J0rpr7vEHOV4YeH3gp06w3GcW6OO8ZrdMCxKGHfQTTUuuVjCmnPcAqiX4nYl-aj99SnEdM1AskjtuIGPFif0245QrKQ7YXgTPWHM";
-const baseURL = `https://15d5-197-121-138-71.ngrok-free.app/api`;
+const baseURL = `https://7d4f-154-237-97-232.ngrok-free.app/api`;
 //////////////// GetProducts Action //////////////
 // export const getProducts = createAsyncThunk(
 //   "products/getProducts",
@@ -84,9 +84,10 @@ export const deleteProducts = createAsyncThunk(
 export const insertProducts = createAsyncThunk(
   "products/insertProducts",
   async (productData, thunkAPI) => {
+    console.log(productData);
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch(`${baseURL}/products`, {
+      const res = await fetch(`${baseURL}/product/add`, {
         method: "POST",
         body: JSON.stringify(productData),
         headers: {
@@ -108,9 +109,11 @@ export const editProduct = createAsyncThunk(
   "products/editProduct",
   async (productData, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI;
+    console.log(productData);
+    console.log(productData.id);
     try {
-      const res = await fetch(`${baseURL}/products/${productData.id}`, {
-        method: "PUT",
+      const res = await fetch(`${baseURL}/product/edit/${productData.id}`, {
+        method: "POST",
         body: JSON.stringify(productData),
         headers: {
           "content-type": "application/json; charset=UTF-8",
@@ -147,7 +150,7 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.products = action.payload;
+        state.products = action.payload.products;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.isLoading = false;
@@ -160,7 +163,7 @@ const productsSlice = createSlice({
       })
       .addCase(deleteProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.products.products = state.products.products.filter(
+        state.products = state.products.filter(
           (el) => el.id !== action.payload.id
         );
       })

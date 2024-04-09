@@ -1,31 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import "./Upload.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editProduct, insertProducts } from "../../store/ProductsSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
-const handleFileUpload = (e) => {
-  const file = e.target.files[0];
-  if (file.size <= 10485760) {
-    // 10MB in bytes
-    // File size is within the limit
-    console.log("File uploaded:", file);
-    // Add your file upload logic here
-  } else {
-    // File size exceeds the limit
-    console.log("File size exceeds the limit (10MB)");
-    // You can display an error message to the user
-  }
-};
+import { getCategory } from "../../store/CategorySlice";
 
 function Upload() {
+  //Map Category to add it IN checkBox in Upload Page
+  const { category } = useSelector((state) => state.category);
+  const categoryTitles = category.map((item) => (
+    <option value={item.id} key={item.id}>
+      {item.title}
+    </option>
+  ));
+
+  ////////////////////////
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file.size <= 10485760) {
+      // 10MB in bytes
+      // File size is within the limit
+      console.log("File uploaded:", file);
+      console.log("File uploaded:", file[0]);
+      console.log("File uploaded:", file.size);
+      // Add your file upload logic here
+    } else {
+      // File size exceeds the limit
+      console.log("File size exceeds the limit (10MB)");
+      // You can display an error message to the user
+    }
+  };
   // variables////////////////////////
   const { editReport, edit } = useSelector((state) => state.products);
+  console.log(edit.category_title);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const category = useRef();
+  const category_id = useRef();
+  // const category_title = useRef();
   const name = useRef();
   const code = useRef();
   const description = useRef();
@@ -38,7 +51,8 @@ function Upload() {
     e.preventDefault();
     const data = {
       id: edit && edit.id,
-      category: category.current.value,
+      category_id: category_id.current.value,
+      // category_title: edit && edit.category_title,
       name: name.current.value,
       code: code.current.value,
       description: description.current.value,
@@ -47,8 +61,9 @@ function Upload() {
       discount: discount.current.value,
       image: image.current.value,
     };
+    console.log(data);
     const isAnyInputEmpty = Object.keys(data).some((key) => {
-      if (key === "id") {
+      if (key === "id" || key === "image") {
         return false; // Skip checking the 'id' field
       }
       return data[key].trim() === "";
@@ -72,7 +87,7 @@ function Upload() {
       dispatch(insertProducts(data));
     }
     // Reset input values
-    category.current.value = null;
+    category_id.current.value = null;
     name.current.value = null;
     code.current.value = null;
     description.current.value = null;
@@ -83,7 +98,9 @@ function Upload() {
     //Navigate to product Page
     navigate("/layout/product");
   };
-
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch]);
   return (
     <>
       <div className="container ">
@@ -95,16 +112,13 @@ function Upload() {
             <select
               className="form-control ps-2"
               id="exampleInputSelect"
-              defaultValue={edit ? edit.category : ""}
-              ref={category}
+              defaultValue={edit ? edit.category_title : ""}
+              ref={category_id}
             >
               <option value="default" disabled className=" text-secondary">
                 Select...
               </option>
-              <option value="option1">option 1</option>
-              <option value="option2">option 2 </option>
-              <option value="option3">option 3</option>
-              <option value="option4">option 4</option>
+              {categoryTitles}
             </select>
           </div>
           <div className="mb-3">
@@ -192,11 +206,7 @@ function Upload() {
               ref={image}
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-info text-light px-3 mt-2"
-            // onClick={EditProductHandler}
-          >
+          <button type="submit" className="btn btn-info text-light px-3 mt-2">
             {editReport ? "Edit" : "Add"}
           </button>
         </form>
