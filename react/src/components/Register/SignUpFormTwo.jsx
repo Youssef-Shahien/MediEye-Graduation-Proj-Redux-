@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function SignUpFormTwo() {
+  let navigate = useNavigate();
+//
   let validationSchema = Yup.object({
     fullName: Yup.string()
       .required("Name is Required")
@@ -19,7 +21,7 @@ function SignUpFormTwo() {
       .required("Email is Required")
       .email("Enter Avalid Email"),
   });
-
+//
   let formik = useFormik({
     initialValues: {
       fullName: "",
@@ -29,8 +31,7 @@ function SignUpFormTwo() {
     validationSchema,
     onSubmit: handelRegisteration,
   });
-  let navigate = useNavigate();
-
+//
   function handelRegisteration(values) {
     let ms = "error";
     if (
