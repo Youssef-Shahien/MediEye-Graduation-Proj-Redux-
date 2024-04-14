@@ -37,6 +37,7 @@
 .table_titles ul li span.active {
   background-color: #ff6f03;
 }
+
 .showing_result p {
   color: #ababab;
   font-weight: bold;
@@ -59,6 +60,18 @@
   transform: translateY(-50%);
 }
 /*Start Status td */
+.selected_orders {
+  width: 110px !important;
+  display: inline-block;
+  text-align: center;
+  height: 30px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 0px !important;
+  border: none !important;
+}
 .complete,
 .new_order,
 .rejected {
@@ -111,13 +124,13 @@
   transition: 0.4s;
 }
 /* TR background colors*/
-.complete_order_tr {
+.complete_tr {
   background-color: hsla(97, 78%, 27%, 0.22);
 }
 .new_order_tr {
   background-color: hsla(54, 77%, 38%, 0.22);
 }
-.rejected_order_tr {
+.rejected_tr {
   background-color: hsla(0, 78%, 46%, 0.22);
 }
 /*End Status td */
