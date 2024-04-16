@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderLogin from "../Header/Header";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux"; // Importing useDispatch hook
 
 function SignUpFormTwo() {
-  let navigate = useNavigate();
-//
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); // Getting the dispatch function
+
+  //
   let validationSchema = Yup.object({
-    fullName: Yup.string()
+    user_name: Yup.string()
       .required("Name is Required")
       .min(8, "Name must be more than 8 letter")
       .max(25, "Name must be less than 25 letter"),
@@ -17,37 +20,47 @@ function SignUpFormTwo() {
       .matches(/^[A-Z]/, "Password must be start with capital letter")
       .min(8, "Password must be at least 8 characters")
       .max(25, "Password must be at most 25 characters"),
+    phone: Yup.string()
+    .required("Phone is Required")
+    .matches(
+      /^(?:\+\d{1,2}\s?)?(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
+      "Enter a valid Phone number"
+    ),
     email: Yup.string()
       .required("Email is Required")
       .email("Enter Avalid Email"),
   });
-//
+  //
   let formik = useFormik({
     initialValues: {
-      fullName: "",
+      user_name: "",
       email: "",
+      phone: "",
       password: "",
     },
     validationSchema,
     onSubmit: handelRegisteration,
   });
-//
+  //
   function handelRegisteration(values) {
     let ms = "error";
     if (
-      formik.errors.fullName == null &&
+      formik.errors.user_name == null &&
       formik.errors.email == null &&
       formik.errors.password == null
     ) {
       ms = "success";
+      dispatch({ type: "Add_User_info", payload: values });
     }
     if (ms === "success") {
-      navigate("/login");
-      console.log(values);
-      localStorage.setItem("phar", JSON.stringify(values));
+      navigate("/signupThree");
+      dispatch({ type: "Add_User_info", payload: values });
     }
+    dispatch({ type: "Add_User_info", payload: values });
   }
-
+  const handleGoBack = () => {
+    navigate("/signup");
+  };
   return (
     <>
       <HeaderLogin />
@@ -64,13 +77,13 @@ function SignUpFormTwo() {
                   type="text"
                   className="form-control mb-3"
                   placeholder="Username"
-                  id="fullName"
+                  id="user_name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  value={formik.values.fullName}
+                  value={formik.values.user_name}
                 />
-                {formik.errors.fullName && formik.touched.fullName ? (
-                  <div className="error">{formik.errors.fullName}</div>
+                {formik.errors.user_name && formik.touched.user_name ? (
+                  <div className="error">{formik.errors.user_name}</div>
                 ) : (
                   ""
                 )}
@@ -85,6 +98,20 @@ function SignUpFormTwo() {
                 />
                 {formik.errors.email && formik.touched.email ? (
                   <div className="error">{formik.errors.email}</div>
+                ) : (
+                  ""
+                )}
+                <input
+                  type="phone"
+                  className="form-control mb-3"
+                  placeholder="Phone"
+                  id="phone"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.phone}
+                />
+                {formik.errors.phone && formik.touched.phone ? (
+                  <div className="error">{formik.errors.phone}</div>
                 ) : (
                   ""
                 )}
@@ -104,7 +131,10 @@ function SignUpFormTwo() {
                 )}
                 <div className="d-flex flex-column gap-2">
                   <button className="btn button" type="submit">
-                    <Link to="/signupThree" className="text-decoration-none text-light">Create account</Link>
+                    Next to Create account
+                  </button>
+                  <button className="btn button" onClick={handleGoBack}>
+                    Back
                   </button>
                   <p>
                     Already have account ?{" "}

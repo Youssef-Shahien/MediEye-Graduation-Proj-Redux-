@@ -15,14 +15,7 @@ export default function Login() {
   let [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // function handelLogin(email,password){
-  //   if(email.email == JSON.parse(localStorage.getItem('phar')).email && password.password == JSON.parse(localStorage.getItem('phar')).password){
-  //     navigate("/layout")
-  //   }else{
-  //       err = `<p className='error'>Email Or Password is wrong</p>`
-  //       console.log(email, JSON.parse(localStorage.getItem('phar')).email,password, JSON.parse(localStorage.getItem('phar')).password)
-  //     }
-  // }
+
   //Handle Login
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -34,13 +27,13 @@ export default function Login() {
       setPassword("");
       setError("");
       // Navigate to the dashboard or other page upon successful login if needed
-      const { isAuthenticated } = useSelector((state) => state.auth);
-      useEffect(() => {
-        if (isAuthenticated) {
-          // Navigate to the dashboard or other page upon successful login if needed
-          navigate("/dashboard");
-        }
-      }, [isAuthenticated, navigate]);
+      // const { isAuthenticated } = useSelector((state) => state.auth);
+      // useEffect(() => {
+      //   if (isAuthenticated) {
+      // Navigate to the dashboard or other page upon successful login if needed
+      navigate("/layout");
+      // }
+      // }, [isAuthenticated, navigate]);
     } catch (error) {
       setError("Login failed. Please check your credentials."); // Set error message
     }
@@ -103,6 +96,16 @@ export default function Login() {
     </div>
   );
 }
+
+
+  // function handelLogin(email,password){
+  //   if(email.email == JSON.parse(localStorage.getItem('phar')).email && password.password == JSON.parse(localStorage.getItem('phar')).password){
+  //     navigate("/layout")
+  //   }else{
+  //       err = `<p className='error'>Email Or Password is wrong</p>`
+  //       console.log(email, JSON.parse(localStorage.getItem('phar')).email,password, JSON.parse(localStorage.getItem('phar')).password)
+  //     }
+  // }
 
 // <form onSubmit={handleLogin}>
 //       <input

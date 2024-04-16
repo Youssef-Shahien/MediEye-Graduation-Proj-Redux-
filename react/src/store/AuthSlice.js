@@ -15,7 +15,7 @@ export const login = createAsyncThunk(
   async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     console.log(userData);
-      try {
+    try {
       const response = await fetch(`${baseURL}/login-email`, {
         method: "POST",
         body: JSON.stringify(userData),
@@ -56,7 +56,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLoading: false,
-    userInfo: null,
+    userInfo: [],
     userToken: null,
     error: null,
     success: false,
@@ -91,6 +91,12 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      //AddUser Info
+      .addCase("Add_User_info", (state, action) => {
+        console.log(action.payload);
+        state.userInfo = { ...state.userInfo , ...action.payload };
+        console.log(state.userInfo);
       });
   },
 });

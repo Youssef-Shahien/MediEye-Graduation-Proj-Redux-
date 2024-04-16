@@ -1,24 +1,68 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderLogin from "../Header/Header";
 import "./SignUpFormFour.css";
+import { useDispatch } from "react-redux";
 
 // Define handleFileUpload outside of the FileUpload component
-const handleFileUpload = (e) => {
-  const file = e.target.files[0];
-  if (file.size <= 10485760) {
-    // 10MB in bytes
-    // File size is within the limit
-    console.log("File uploaded:", file);
-    // Add your file upload logic here
-  } else {
-    // File size exceeds the limit
-    console.log("File size exceeds the limit (10MB)");
-    // You can display an error message to the user
-  }
-};
 
 function SignUpFormFour() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const commercial_register = useRef();
+  const tax_card = useRef();
+  const company_license = useRef();
+
+  //Handle Upload Files (PDF)
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+
+    // Check if a file is selected
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
+
+    // Check if the file type is PDF
+    if (file.type !== "application/pdf") {
+      console.log("Please select a PDF file");
+      // You can display an error message to the user
+      return;
+    }
+
+    // Check if the file size is within the limit
+    if (file.size <= 10485760) {
+      // 10MB in bytes
+      // File size is within the limit
+      console.log("File uploaded:", file);
+      // Add your file upload logic here
+    } else {
+      // File size exceeds the limit
+      console.log("File size exceeds the limit (10MB)");
+      // You can display an error message to the user
+    }
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const data = {
+      commercial_register: commercial_register.current.value,
+      tax_card: tax_card.current.value,
+      company_license: company_license.current.value,
+    };
+
+    dispatch({ type: "Add_User_info", payload: data });
+
+    commercial_register.current.value = null;
+    tax_card.current.value = null;
+    company_license.current.value = null;
+    // navigate("/login");
+  };
+  const handleGoBack = () => {
+    navigate("/signupThree");
+  };
   return (
     <>
       <HeaderLogin />
@@ -33,17 +77,14 @@ function SignUpFormFour() {
               <p className="card-subtitle my-2 text-dark text-start fw-bold">
                 Official Company Data
               </p>
-              <form className="">
+              <form className="" onSubmit={submitHandler}>
                 <div className="mb-3">
-                  <label
-                    htmlFor="exampleInputEmail1"
-                    className="form-label fw-light"
-                  >
+                  <label htmlFor="exampleInputEmail1" className="form-label">
                     Commercial register
                   </label>
                   <div className="p-3 border border-1 text-center rounded-3">
                     <label
-                      htmlFor="file-upload"
+                      htmlFor="Commercial register"
                       className="fs-6 fw-bold"
                       role="button"
                     >
@@ -52,9 +93,10 @@ function SignUpFormFour() {
                     </label>
                     <input
                       type="file"
-                      id="file-upload"
+                      id="Commercial register"
                       onChange={handleFileUpload}
                       style={{ display: "none" }}
+                      ref={commercial_register}
                     />
                     <p className="text-secondary my-2">Allowed size 10MB</p>
                   </div>
@@ -65,7 +107,7 @@ function SignUpFormFour() {
                   </label>
                   <div className="p-3 border border-1 text-center rounded-3">
                     <label
-                      htmlFor="file-upload"
+                      htmlFor="tax Card"
                       className="fs-6 fw-bold"
                       role="button"
                     >
@@ -74,9 +116,10 @@ function SignUpFormFour() {
                     </label>
                     <input
                       type="file"
-                      id="file-upload"
+                      id="tax Card"
                       onChange={handleFileUpload}
                       style={{ display: "none" }}
+                      ref={tax_card}
                     />
                     <p className="text-secondary my-2">Allowed size 10MB</p>
                   </div>
@@ -87,7 +130,7 @@ function SignUpFormFour() {
                   </label>
                   <div className="p-3 border border-1 text-center rounded-3">
                     <label
-                      htmlFor="file-upload"
+                      htmlFor="Company license"
                       className="fs-6 fw-bold"
                       role="button"
                     >
@@ -96,21 +139,22 @@ function SignUpFormFour() {
                     </label>
                     <input
                       type="file"
-                      id="file-upload"
+                      id="Company license"
                       onChange={handleFileUpload}
                       style={{ display: "none" }}
+                      ref={company_license}
                     />
                     <p className="text-secondary my-2">Allowed size 10MB</p>
                   </div>
                 </div>
 
                 <div className="d-flex flex-column gap-2">
-                  <Link to="/login" type="submit" className="btn button">
-                    Sign Up
-                  </Link>
-                  <Link to="/signup" type="submit" className="btn button">
+                  <button className="btn button" type="submit">
+                    SignUp
+                  </button>
+                  <button className="btn button" onClick={handleGoBack}>
                     Back
-                  </Link>
+                  </button>
                 </div>
               </form>
             </div>
