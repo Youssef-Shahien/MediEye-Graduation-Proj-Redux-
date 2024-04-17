@@ -22,6 +22,7 @@ import AddCates from "./pages/AddCates/AddCates.jsx";
 import ForgetPass from './components/ForgetPass/ForgetPass';
 import ForgetPassCode from "./components/ForgetPassCode/ForgetPassCode.jsx";
 import ResetPass from "./components/ResetPass/ResetPass.jsx";
+import FinalRegister from "./components/Register/FinalRegister.jsx";
 ////////////////////
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
@@ -108,6 +109,7 @@ function App() {
     { path: "/signupTwo", element: <SignUpFormTwo /> },
     { path: "/signupThree", element: <SignUpFormThree /> },
     { path: "/signupFour", element: <SignUpFormFour /> },
+    { path: "/finalRegister", element: <FinalRegister /> },
   ]);
   return (
     <>

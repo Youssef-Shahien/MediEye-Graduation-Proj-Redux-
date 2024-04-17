@@ -2,17 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // https://15d5-197-121-138-71.ngrok-free.app/api/category/add
 //////////////////////////////////////////
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI2IiwianRpIjoiMDU3ZDMyYmMwMDYwZGE1NzNkN2Q3YjIzNWQ3MDVlOWIxMzg0ZTAwYzVkMDVmZTU2N2QzYjc0MzU4MTg4MzgyY2U2M2M1NWE0YjBhNjIzMjUiLCJpYXQiOjE3MTMxMzE0MzkuNzk1NTA1LCJuYmYiOjE3MTMxMzE0MzkuNzk1NTA4LCJleHAiOjE3Mjg5NDI2MzkuNzg0NzM0LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.UnKzmrIGPPPHf8IEYvfIe5pzJuLUokp6DEKVt7VD_ZiCEJfTWtpeZpH7SFdA0g4CPwFh1IonV5Lh3VUirtVl4sS2FFrS-Qzg9LI341xHXVVlkgwTQLaWCTZObACTtUTnPDstgN-wVemiwUoP1sI8Oi_BHMNwmmw5vEZGr3Yrhnm4QW9w5P80D1B2wQfASe7iI44z1Gmchcj8JBRg4B0qMWIGdS4C4Xgt6ACi303z0tDrdhwyHbhEeJ72bFqCAvwSIKsfcHSsefGSaJ9jldCLwvnsVPwhp2Z4haqUvN4JKKT5KbepExbGtLrUTdHfBpc1qupSNK3xQElCR8Kk6X6f21OwWv8ykC23hklC2Jg9vvpGkCx1_27nLW45uV6PPU7yxZD2hSzgtQXeNBNHnoBVeu73W-LFqw1Tb6B1b2XbNjdk865zW7w3ZXZsUFWDp_xmyTZaN-an94VE_nflKTWRSYvNgUvA_joYUL2ewLtfDUyUsyYpMBzv985MwoXkidCCW43KPvtz1eHHPxhzIkOkGHEOyKXd3qWx-kS27ErgGrTMWv3exTr59nd5MScaIlPX6nj5nJLfiBZqk1Rwe2Sx6mgk9sG7F4wwWOMmiz1YJ_AI0uL1TKh6Mpga4CsS24TzAkB6z3omaSKSlzYyaa6EFPBtU9Dln_JlYB6Nnj0DICE";
-const base_url = "https://2603-154-237-75-97.ngrok-free.app";
+// const token =
+//   "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiN2IzYzBhZmZhZDczZTRkMjM1MDc0NDFkMmM0YTE2NmNjMDRmYmJhMzM0ZTlkZTdkOGI3MzE2YmQ4OGFkMGE4YmYwNjA0YjJkOTA3NTdjNjkiLCJpYXQiOjE3MTMyNjQ4NzIuMTg2OTUxLCJuYmYiOjE3MTMyNjQ4NzIuMTg2OTUzLCJleHAiOjE3MjkwNzYwNzIuMTc1ODI1LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.WdqmhNsDx2_leKwriMCkU_8TKYvKrHMKZug77T5t3KNEyPZkqoF0HVs0v8niFgh6waGMw9v5vtlXyHHRwck6YaX2Go3VADVkH1ZDU57kmP4U-8FtCMGvkWz7f2VXMdVn_fth_2DAcmfzpnFSuDxIxcCNOrGBFRqDgdARilBt19pl0m8ikEKqG0u_3y7vOqoe8i0qMqUliPLDMjcZoo-TD-NqzQaiqzHxR4ldflI_PVmvdrHjtpaNvgw9xjhGF2RE1xlrN5BbJnn23baZg0DFvpmaQvW3h2KcPSI2eESy4Dgm5caLuZS0KrnLYtQarhkRB89_eSdNdmoCWnYhIcA9WztYKF165QfKjJbshxJn0gbFs4Ge5EbQ3Qw00h6exaujsJtpVi7j3t1woUmebXS9ODeLIeNnD3XGNMQQzSD7jXOHtgl_pdAuoYjgi8xtfDMTmYglNcipStiH6IFP3hsqQfQ-w5GoAS4vmTVqa2FZE5a_5pBBy5y1KvidWqF_x9pcxpLyG1p6BZtqT45PtvUzHEvWoZjmbn59h2YUp-8MuHVvCXJMuSBclHJs_L4w6YZdXrN_nFqlJUckOop9YcyG2pBi3q-R8cR3rGe4E0se8U30vMvGoBcWmC2C1XF1_9yNqBKxT29IBtXjnA3g2yqSvqAU_Ogyhbsy-weam0ep8M4";
+const base_url = "https://67d3-156-221-119-205.ngrok-free.app";
 const baseURL = `${base_url}/api`;
 // const baseURL = "http://localhost:3006";
 //////////////// GetCategory Action //////////////
 export const getCategory = createAsyncThunk(
   "category/getCategory",
   async (_, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue ,getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken
       const res = await fetch(`${baseURL}/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -32,8 +33,9 @@ export const getCategory = createAsyncThunk(
 export const deleteCategory = createAsyncThunk(
   "category/deleteCategory",
   async (item, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue ,getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken
       await fetch(`${baseURL}/category/${item.id}`, {
         method: "DELETE",
         headers: {
@@ -53,8 +55,9 @@ export const insertCategory = createAsyncThunk(
   "category/insertCategory",
   async (categoryData, thunkAPI) => {
     console.log(categoryData);
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue,getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken
       const res = await fetch(`${baseURL}/category/add`, {
         method: "POST",
         body: JSON.stringify(categoryData),
@@ -76,9 +79,10 @@ export const insertCategory = createAsyncThunk(
 export const editCategory = createAsyncThunk(
   "category/editCategory",
   async (categoryData, thunkAPI) => {
-    const { rejectWithValue, dispatch } = thunkAPI;
+    const { rejectWithValue, dispatch ,getState } = thunkAPI;
     console.log(categoryData);
     try {
+      const token = getState().auth.userToken
       const res = await fetch(`${baseURL}/category/edit/${categoryData.id}`, {
         method: "POST",
         body: JSON.stringify(categoryData),

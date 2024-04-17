@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const baseURL = "http://localhost:3006/users"
+const baseURL = "http://localhost:3006/users";
 //////////////// GetUsers Action //////////////
 export const getUsers = createAsyncThunk(
   "users/getUsers",
   async (_, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken;
       const res = await fetch(baseURL);
       const data = await res.json();
       return data;
@@ -18,8 +19,9 @@ export const getUsers = createAsyncThunk(
 export const deleteUsers = createAsyncThunk(
   "users/deleteUsers",
   async (user, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken;
       await fetch(`${baseURL}/${user.id}`, {
         method: "DELETE",
         headers: {
@@ -37,8 +39,9 @@ export const deleteUsers = createAsyncThunk(
 export const insertUsers = createAsyncThunk(
   "products/insertUsers",
   async (userData, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken;
       const res = await fetch(baseURL, {
         method: "POST",
         body: JSON.stringify(userData),
@@ -58,8 +61,9 @@ export const insertUsers = createAsyncThunk(
 export const editUsers = createAsyncThunk(
   "products/editUsers",
   async (userData, thunkAPI) => {
-    const { rejectWithValue, dispatch } = thunkAPI;
+    const { rejectWithValue, dispatch, getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken;
       const res = await fetch(`${baseURL}/${userData.id}`, {
         method: "PUT",
         body: JSON.stringify(userData),

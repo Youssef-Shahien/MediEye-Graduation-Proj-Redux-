@@ -2,14 +2,17 @@ import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderLogin from "../Header/Header";
 import "./SignUpFormFour.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../store/AuthSlice";
 
 // Define handleFileUpload outside of the FileUpload component
 
 function SignUpFormFour() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { isLoading, userInfo, error, success } = useSelector(
+    (state) => state.auth
+  );
   const commercial_register = useRef();
   const tax_card = useRef();
   const company_license = useRef();
@@ -43,7 +46,7 @@ function SignUpFormFour() {
       // You can display an error message to the user
     }
   };
-
+  //SubmitForm Handler
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -58,7 +61,8 @@ function SignUpFormFour() {
     commercial_register.current.value = null;
     tax_card.current.value = null;
     company_license.current.value = null;
-    // navigate("/login");
+
+    navigate("/finalRegister");
   };
   const handleGoBack = () => {
     navigate("/signupThree");
@@ -150,7 +154,7 @@ function SignUpFormFour() {
 
                 <div className="d-flex flex-column gap-2">
                   <button className="btn button" type="submit">
-                    SignUp
+                    Next
                   </button>
                   <button className="btn button" onClick={handleGoBack}>
                     Back

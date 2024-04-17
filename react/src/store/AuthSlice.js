@@ -1,13 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 //user token
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;
 
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI2IiwianRpIjoiMDU3ZDMyYmMwMDYwZGE1NzNkN2Q3YjIzNWQ3MDVlOWIxMzg0ZTAwYzVkMDVmZTU2N2QzYjc0MzU4MTg4MzgyY2U2M2M1NWE0YjBhNjIzMjUiLCJpYXQiOjE3MTMxMzE0MzkuNzk1NTA1LCJuYmYiOjE3MTMxMzE0MzkuNzk1NTA4LCJleHAiOjE3Mjg5NDI2MzkuNzg0NzM0LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.UnKzmrIGPPPHf8IEYvfIe5pzJuLUokp6DEKVt7VD_ZiCEJfTWtpeZpH7SFdA0g4CPwFh1IonV5Lh3VUirtVl4sS2FFrS-Qzg9LI341xHXVVlkgwTQLaWCTZObACTtUTnPDstgN-wVemiwUoP1sI8Oi_BHMNwmmw5vEZGr3Yrhnm4QW9w5P80D1B2wQfASe7iI44z1Gmchcj8JBRg4B0qMWIGdS4C4Xgt6ACi303z0tDrdhwyHbhEeJ72bFqCAvwSIKsfcHSsefGSaJ9jldCLwvnsVPwhp2Z4haqUvN4JKKT5KbepExbGtLrUTdHfBpc1qupSNK3xQElCR8Kk6X6f21OwWv8ykC23hklC2Jg9vvpGkCx1_27nLW45uV6PPU7yxZD2hSzgtQXeNBNHnoBVeu73W-LFqw1Tb6B1b2XbNjdk865zW7w3ZXZsUFWDp_xmyTZaN-an94VE_nflKTWRSYvNgUvA_joYUL2ewLtfDUyUsyYpMBzv985MwoXkidCCW43KPvtz1eHHPxhzIkOkGHEOyKXd3qWx-kS27ErgGrTMWv3exTr59nd5MScaIlPX6nj5nJLfiBZqk1Rwe2Sx6mgk9sG7F4wwWOMmiz1YJ_AI0uL1TKh6Mpga4CsS24TzAkB6z3omaSKSlzYyaa6EFPBtU9Dln_JlYB6Nnj0DICE";
-const baseURL = `https://2603-154-237-75-97.ngrok-free.app/api`;
+const baseURL = `https://67d3-156-221-119-205.ngrok-free.app/api`;
 // const navigate = useNavigate();
 // Login Action
 export const login = createAsyncThunk(
@@ -20,12 +17,11 @@ export const login = createAsyncThunk(
         method: "POST",
         body: JSON.stringify(userData),
         headers: {
-          Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "true",
         },
       });
       const data = await response.json();
-      localStorage.setItem("userToken", token);
+      localStorage.setItem("userToken", data.userToken);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -37,13 +33,16 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
   "auth/register",
   (userData, thunkAPI) => {
+    console.log(userData)
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = fetch(baseURL, {
+      const response = fetch(`${baseURL}/register-pharmacy`, {
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "true",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify(userData),
       });
       return response.data;
     } catch (error) {
@@ -57,7 +56,7 @@ const authSlice = createSlice({
   initialState: {
     isLoading: false,
     userInfo: [],
-    userToken: null,
+    userToken: 'null',
     error: null,
     success: false,
   },
@@ -73,6 +72,7 @@ const authSlice = createSlice({
         state.userInfo = action.payload;
         state.success = true; // Set isAuthenticated to true upon successful login
         state.userToken = userToken;
+        console.log(state.userToken)
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
@@ -94,9 +94,7 @@ const authSlice = createSlice({
       })
       //AddUser Info
       .addCase("Add_User_info", (state, action) => {
-        console.log(action.payload);
-        state.userInfo = { ...state.userInfo , ...action.payload };
-        console.log(state.userInfo);
+        state.userInfo = { ...state.userInfo, ...action.payload };
       });
   },
 });

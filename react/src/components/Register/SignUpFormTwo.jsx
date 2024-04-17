@@ -20,12 +20,18 @@ function SignUpFormTwo() {
       .matches(/^[A-Z]/, "Password must be start with capital letter")
       .min(8, "Password must be at least 8 characters")
       .max(25, "Password must be at most 25 characters"),
+    password_confirmation: Yup.string()
+      .required("Confirm Password is Required")
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .matches(/^[A-Z]/, "Password must be start with capital letter")
+      .min(8, "Password must be at least 8 characters")
+      .max(25, "Password must be at most 25 characters"),
     phone: Yup.string()
-    .required("Phone is Required")
-    .matches(
-      /^(?:\+\d{1,2}\s?)?(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
-      "Enter a valid Phone number"
-    ),
+      .required("Phone is Required")
+      .matches(
+        /^(?:\+\d{1,2}\s?)?(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
+        "Enter a valid Phone number"
+      ),
     email: Yup.string()
       .required("Email is Required")
       .email("Enter Avalid Email"),
@@ -37,6 +43,7 @@ function SignUpFormTwo() {
       email: "",
       phone: "",
       password: "",
+      password_confirmation: "",
     },
     validationSchema,
     onSubmit: handelRegisteration,
@@ -47,7 +54,8 @@ function SignUpFormTwo() {
     if (
       formik.errors.user_name == null &&
       formik.errors.email == null &&
-      formik.errors.password == null
+      formik.errors.password == null &&
+      formik.errors.password_confirmation == null
     ) {
       ms = "success";
       dispatch({ type: "Add_User_info", payload: values });
@@ -126,6 +134,23 @@ function SignUpFormTwo() {
                 />
                 {formik.errors.password && formik.touched.password ? (
                   <div className="error">{formik.errors.password}</div>
+                ) : (
+                  ""
+                )}
+                <input
+                  type="password"
+                  className="form-control mb-3"
+                  placeholder="Confirm Password"
+                  id="password_confirmation"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.password_confirmation}
+                />
+                {formik.errors.password_confirmation &&
+                formik.touched.password_confirmation ? (
+                  <div className="error">
+                    {formik.errors.password_confirmation}
+                  </div>
                 ) : (
                   ""
                 )}

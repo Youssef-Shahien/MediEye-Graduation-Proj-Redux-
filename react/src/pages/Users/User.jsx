@@ -17,34 +17,51 @@ const User = () => {
     dispatch(getUsers());
   }, [dispatch]);
   ////////////////
-  const cards = users.map((user) => (
-    <tbody key={user.id}>
+  const cards =
+    error === null ? (
+      users && users.length > 0 ? (
+        users.map((user) => (
+          <tr key={user.id}>
+            <td className="px-5">{user.id}</td>
+            <td className="ps-3">{user.user_name}</td>
+            <td className="ps-3">{user.email}</td>
+            <td className="ps-3">{user.role}</td>
+            <td className="ps-2 text-center">
+              <button
+                className="btn btn-outline-info me-4"
+                onClick={() => editHadnler(user)}
+              >
+                <i className="fas fa-pen px-1"></i>Edit
+              </button>
+              <button className="btn btn-outline-info me-4">
+                <i className="fa-solid fa-circle-info pe-1"></i>Details
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => dispatch(deleteUsers(user))}
+              >
+                <i className="fas fa-trash pe-1"></i>Delete
+              </button>
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="7">
+            <h4>There isn't Data There.....</h4>
+          </td>
+        </tr>
+      )
+    ) : (
       <tr>
-        <td className="px-5">{user.id}</td>
-        <td className="ps-3">{user.user_name}</td>
-        <td className="ps-3">{user.email}</td>
-        <td className="ps-3">{user.role}</td>
-        <td className="ps-2 text-center">
-          <button
-            className="btn btn-outline-info me-4"
-            onClick={() => editHadnler(user)}
-          >
-            <i className="fas fa-pen px-1"></i>Edit
-          </button>
-          <button className="btn btn-outline-info me-4">
-            <i className="fa-solid fa-circle-info pe-1"></i>Details
-          </button>
-          <button
-            className="btn btn-outline-danger"
-            onClick={() => dispatch(deleteUsers(user))}
-          >
-            <i className="fas fa-trash pe-1"></i>Delete
-          </button>
+        <td colSpan="7">
+          <div className="alert alert-danger text-center" role="alert">
+            {error}
+          </div>
         </td>
       </tr>
-    </tbody>
-  ));
-
+    );
+  //
   return (
     <div className="container-fluid">
       <div className="navbarTop d-flex justify-content-between py-4">
@@ -81,7 +98,17 @@ const User = () => {
             </td>
           </tr>
         </thead>
-        {cards}
+        <tbody>
+          {isLoading ? (
+            <tr>
+              <td colSpan="7">
+                <h4>"Wait Please Dont Close The Page"</h4>
+              </td>
+            </tr>
+          ) : (
+            cards
+          )}
+        </tbody>
       </table>
     </div>
   );

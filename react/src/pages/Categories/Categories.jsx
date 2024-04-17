@@ -53,7 +53,7 @@ const Categories = () => {
     ) : (
       <tr>
         <td colSpan="7">
-          <div className="alert alert-danger" role="alert">
+          <div className="alert alert-danger text-center" role="alert">
             {error}
           </div>
         </td>

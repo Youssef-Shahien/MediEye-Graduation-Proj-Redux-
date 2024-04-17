@@ -1,49 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// export const getProducts = createAsyncThunk(
-//   "products/getProducts",
-//   async (_, thunkAPI) => {
-//     const { rejectWithValue } = thunkAPI;
-//     try {
-//       const response = await axios.get(`${baseURL}/products`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "ngrok-skip-browser-warning": "true",
-//         },
-//       });
-//       return response.data;
-//     } catch (error) {
-//       console.log(error.message);
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+import { useSelector } from "react-redux";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI2IiwianRpIjoiMDU3ZDMyYmMwMDYwZGE1NzNkN2Q3YjIzNWQ3MDVlOWIxMzg0ZTAwYzVkMDVmZTU2N2QzYjc0MzU4MTg4MzgyY2U2M2M1NWE0YjBhNjIzMjUiLCJpYXQiOjE3MTMxMzE0MzkuNzk1NTA1LCJuYmYiOjE3MTMxMzE0MzkuNzk1NTA4LCJleHAiOjE3Mjg5NDI2MzkuNzg0NzM0LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.UnKzmrIGPPPHf8IEYvfIe5pzJuLUokp6DEKVt7VD_ZiCEJfTWtpeZpH7SFdA0g4CPwFh1IonV5Lh3VUirtVl4sS2FFrS-Qzg9LI341xHXVVlkgwTQLaWCTZObACTtUTnPDstgN-wVemiwUoP1sI8Oi_BHMNwmmw5vEZGr3Yrhnm4QW9w5P80D1B2wQfASe7iI44z1Gmchcj8JBRg4B0qMWIGdS4C4Xgt6ACi303z0tDrdhwyHbhEeJ72bFqCAvwSIKsfcHSsefGSaJ9jldCLwvnsVPwhp2Z4haqUvN4JKKT5KbepExbGtLrUTdHfBpc1qupSNK3xQElCR8Kk6X6f21OwWv8ykC23hklC2Jg9vvpGkCx1_27nLW45uV6PPU7yxZD2hSzgtQXeNBNHnoBVeu73W-LFqw1Tb6B1b2XbNjdk865zW7w3ZXZsUFWDp_xmyTZaN-an94VE_nflKTWRSYvNgUvA_joYUL2ewLtfDUyUsyYpMBzv985MwoXkidCCW43KPvtz1eHHPxhzIkOkGHEOyKXd3qWx-kS27ErgGrTMWv3exTr59nd5MScaIlPX6nj5nJLfiBZqk1Rwe2Sx6mgk9sG7F4wwWOMmiz1YJ_AI0uL1TKh6Mpga4CsS24TzAkB6z3omaSKSlzYyaa6EFPBtU9Dln_JlYB6Nnj0DICE";
-const baseURL = `https://2603-154-237-75-97.ngrok-free.app/api`;
+// const token =
+//   "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiN2IzYzBhZmZhZDczZTRkMjM1MDc0NDFkMmM0YTE2NmNjMDRmYmJhMzM0ZTlkZTdkOGI3MzE2YmQ4OGFkMGE4YmYwNjA0YjJkOTA3NTdjNjkiLCJpYXQiOjE3MTMyNjQ4NzIuMTg2OTUxLCJuYmYiOjE3MTMyNjQ4NzIuMTg2OTUzLCJleHAiOjE3MjkwNzYwNzIuMTc1ODI1LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.WdqmhNsDx2_leKwriMCkU_8TKYvKrHMKZug77T5t3KNEyPZkqoF0HVs0v8niFgh6waGMw9v5vtlXyHHRwck6YaX2Go3VADVkH1ZDU57kmP4U-8FtCMGvkWz7f2VXMdVn_fth_2DAcmfzpnFSuDxIxcCNOrGBFRqDgdARilBt19pl0m8ikEKqG0u_3y7vOqoe8i0qMqUliPLDMjcZoo-TD-NqzQaiqzHxR4ldflI_PVmvdrHjtpaNvgw9xjhGF2RE1xlrN5BbJnn23baZg0DFvpmaQvW3h2KcPSI2eESy4Dgm5caLuZS0KrnLYtQarhkRB89_eSdNdmoCWnYhIcA9WztYKF165QfKjJbshxJn0gbFs4Ge5EbQ3Qw00h6exaujsJtpVi7j3t1woUmebXS9ODeLIeNnD3XGNMQQzSD7jXOHtgl_pdAuoYjgi8xtfDMTmYglNcipStiH6IFP3hsqQfQ-w5GoAS4vmTVqa2FZE5a_5pBBy5y1KvidWqF_x9pcxpLyG1p6BZtqT45PtvUzHEvWoZjmbn59h2YUp-8MuHVvCXJMuSBclHJs_L4w6YZdXrN_nFqlJUckOop9YcyG2pBi3q-R8cR3rGe4E0se8U30vMvGoBcWmC2C1XF1_9yNqBKxT29IBtXjnA3g2yqSvqAU_Ogyhbsy-weam0ep8M4";
+const baseURL = `https://67d3-156-221-119-205.ngrok-free.app/api`;
 //////////////// GetProducts Action //////////////
-// export const getProducts = createAsyncThunk(
-//   "products/getProducts",
-//   async (_, thunkAPI) => {
-//     const { rejectWithValue } = thunkAPI;
-//     try {
-//       const res = await fetch("http://localhost:3006/products");
-//       const data = await res.json();
-//       console.log(data);
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (_, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken;
       const res = await fetch(`${baseURL}/products`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,8 +32,9 @@ export const getProducts = createAsyncThunk(
 export const deleteProducts = createAsyncThunk(
   "products/deleteProducts",
   async (item, thunkAPI) => {
-    const { rejectWithValue, dispatch } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken;
       await fetch(`${baseURL}/product/${item.id}`, {
         method: "DELETE",
         headers: {
@@ -85,8 +55,9 @@ export const insertProducts = createAsyncThunk(
   "products/insertProducts",
   async (productData, thunkAPI) => {
     console.log(productData);
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue ,getState } = thunkAPI;
     try {
+      const token = getState().auth.userToken
       const res = await fetch(`${baseURL}/product/add`, {
         method: "POST",
         body: JSON.stringify(productData),
@@ -108,10 +79,11 @@ export const insertProducts = createAsyncThunk(
 export const editProduct = createAsyncThunk(
   "products/editProduct",
   async (productData, thunkAPI) => {
-    const { rejectWithValue, dispatch } = thunkAPI;
+    const { rejectWithValue, dispatch ,getState } = thunkAPI;
     console.log(productData);
     console.log(productData.id);
     try {
+      const token = getState().auth.userToken
       const res = await fetch(`${baseURL}/product/edit/${productData.id}`, {
         method: "POST",
         body: JSON.stringify(productData),

@@ -11,66 +11,88 @@ import { editOrder, getOrders } from "../../store/OrderSlice";
 
 function Orders() {
   const dispatch = useDispatch();
-  const { orders } = useSelector((state) => state.orders);
+  const { orders, isLoading, error } = useSelector((state) => state.orders);
   const arrowFont = <FontAwesomeIcon icon={faChevronDown} />;
   const checkFont = <FontAwesomeIcon icon={faSquareCheck} />;
   const handleStyleWithOptionValue = (status, id) => {
     dispatch(editOrder({ id, status }));
   };
   //////////////////////////////////////////////////////////////////
-  const tableRowData = orders.map((item) => (
-    <tr className={`${style[`${item.status}_tr`]}`} key={item.id}>
-      <th className="text-secondary" scope="row">
-        <input className={style.my_check} type="checkbox" />
-      </th>
-      <td>{item.id}</td>
-      <td className="fw-bold">Tv 14 Inche</td>
-      <td>{item.customer}</td>
-      <td>{item.phone_number}</td>
-      {/* Start Status Board*/}
-      <td className={style.status}>
-        <div>
-          <div className="mb-3">
-            <select
-              id="exampleInputSelect"
-              className={`${style.selected_orders} ${style[`${item.status}`]}`}
-              onChange={(e) =>
-                handleStyleWithOptionValue(e.target.value, item.id)
-              }
-              value={item.status}
-            >
-              <option
-                className={`${style.new_order} text-secondary`}
-                value="new_order"
-              >
-                New Order
-              </option>
-              <option
-                className={`${style.complete} text-secondary`}
-                value="complete"
-              >
-                Complete
-              </option>
+  const tableRowData =
+    error === null ? (
+      orders && orders.length > 0 ? (
+        orders.map((item) => (
+          <tr className={`${style[`${item.status}_tr`]}`} key={item.id}>
+            <th className="text-secondary" scope="row">
+              <input className={style.my_check} type="checkbox" />
+            </th>
+            <td>{item.id}</td>
+            <td className="fw-bold">Tv 14 Inche</td>
+            <td>{item.customer}</td>
+            <td>{item.phone_number}</td>
+            {/* Start Status Board*/}
+            <td className={style.status}>
+              <div>
+                <div className="mb-3">
+                  <select
+                    id="exampleInputSelect"
+                    className={`${style.selected_orders} ${
+                      style[`${item.status}`]
+                    }`}
+                    onChange={(e) =>
+                      handleStyleWithOptionValue(e.target.value, item.id)
+                    }
+                    value={item.status}
+                  >
+                    <option
+                      className={`${style.new_order} text-secondary`}
+                      value="new_order"
+                    >
+                      New Order
+                    </option>
+                    <option
+                      className={`${style.complete} text-secondary`}
+                      value="complete"
+                    >
+                      Complete
+                    </option>
 
-              <option
-                className={`${style.rejected} text-secondary`}
-                value="rejected"
-              >
-                Rejected
-              </option>
-            </select>
+                    <option
+                      className={`${style.rejected} text-secondary`}
+                      value="rejected"
+                    >
+                      Rejected
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </td>
+            {/* End Status Board*/}
+            <td className="fw-bold">{item.total_amount}$</td>
+            <td>
+              March 21,2020
+              <br />
+              00:28
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="7">
+            <h4>There isn't Orders There.....</h4>
+          </td>
+        </tr>
+      )
+    ) : (
+      <tr>
+        <td colSpan="7">
+          <div className="alert alert-danger" role="alert">
+            {error}
           </div>
-        </div>
-      </td>
-      {/* End Status Board*/}
-      <td className="fw-bold">{item.total_amount}$</td>
-      <td>
-        March 21,2020
-        <br />
-        00:28
-      </td>
-    </tr>
-  ));
+        </td>
+      </tr>
+    );
+
   //////////////////////////////////////////////////////////////////
   // Dispatch Orders
   useEffect(() => {
@@ -129,7 +151,17 @@ function Orders() {
             <th scope="col">Created Date</th>
           </tr>
         </thead>
-        <tbody className={style.table_group_divider}>{tableRowData}</tbody>
+        <tbody className={style.table_group_divider}>
+          {isLoading ? (
+            <tr>
+              <td colSpan="7">
+                <h4>"Wait Please Dont Close The Page"</h4>
+              </td>
+            </tr>
+          ) : (
+            tableRowData
+          )}
+        </tbody>
       </table>
       {/* End Table */}
     </div>
