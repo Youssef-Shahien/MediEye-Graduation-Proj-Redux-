@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import "./Upload.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,33 +8,34 @@ import Swal from "sweetalert2";
 import { getCategory } from "../../store/CategorySlice";
 
 function Upload() {
+  const [imagePreview, setImagePreview] = useState(null);
+
   //Map Category to add it IN checkBox in Upload Page
   const { category } = useSelector((state) => state.category);
-  const categoryTitles = category.map((item) => (
-    <option value={item.id} key={item.id}>
-      {item.title}
-    </option>
-  ));
+
+  const categoryTitles =
+    category &&
+    category.map((item) => (
+      <option value={item.id} key={item.id}>
+        {item.title}
+      </option>
+    ));
 
   ////////////////////////
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file.size <= 10485760) {
-      // 10MB in bytes
-      // File size is within the limit
-      console.log("File uploaded:", file);
-      console.log("File uploaded:", file[0]);
-      console.log("File uploaded:", file.size);
-      // Add your file upload logic here
-    } else {
-      // File size exceeds the limit
-      console.log("File size exceeds the limit (10MB)");
-      // You can display an error message to the user
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      image.current = file;
+      // Create a preview of the image
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
   // variables////////////////////////
   const { editReport, edit } = useSelector((state) => state.products);
-  console.log(edit.category_title);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const category_id = useRef();
@@ -59,8 +60,9 @@ function Upload() {
       effective_material: effective_material.current.value,
       price: price.current.value,
       discount: discount.current.value,
-      image: image.current.value,
+      image: edit ? null : image.current,
     };
+
     console.log(data);
     const isAnyInputEmpty = Object.keys(data).some((key) => {
       if (key === "id" || key === "image") {
@@ -94,7 +96,7 @@ function Upload() {
     effective_material.current.value = null;
     price.current.value = null;
     discount.current.value = null;
-    image.current.value = null;
+    image.current = null;
     //Navigate to product Page
     navigate("/layout/product");
   };
@@ -200,9 +202,9 @@ function Upload() {
             <input
               type="file"
               id="file-upload"
-              onChange={handleFileUpload}
+              onChange={handleImageUpload}
               style={{ display: "none" }}
-              // defaultValue={edit ? edit.image : ""}
+              accept="image/jpeg, image/png, image/jpg, image/gif"
               ref={image}
             />
           </div>

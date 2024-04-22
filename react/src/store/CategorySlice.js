@@ -4,16 +4,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 //////////////////////////////////////////
 // const token =
 //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiN2IzYzBhZmZhZDczZTRkMjM1MDc0NDFkMmM0YTE2NmNjMDRmYmJhMzM0ZTlkZTdkOGI3MzE2YmQ4OGFkMGE4YmYwNjA0YjJkOTA3NTdjNjkiLCJpYXQiOjE3MTMyNjQ4NzIuMTg2OTUxLCJuYmYiOjE3MTMyNjQ4NzIuMTg2OTUzLCJleHAiOjE3MjkwNzYwNzIuMTc1ODI1LCJzdWIiOiI2OCIsInNjb3BlcyI6W119.WdqmhNsDx2_leKwriMCkU_8TKYvKrHMKZug77T5t3KNEyPZkqoF0HVs0v8niFgh6waGMw9v5vtlXyHHRwck6YaX2Go3VADVkH1ZDU57kmP4U-8FtCMGvkWz7f2VXMdVn_fth_2DAcmfzpnFSuDxIxcCNOrGBFRqDgdARilBt19pl0m8ikEKqG0u_3y7vOqoe8i0qMqUliPLDMjcZoo-TD-NqzQaiqzHxR4ldflI_PVmvdrHjtpaNvgw9xjhGF2RE1xlrN5BbJnn23baZg0DFvpmaQvW3h2KcPSI2eESy4Dgm5caLuZS0KrnLYtQarhkRB89_eSdNdmoCWnYhIcA9WztYKF165QfKjJbshxJn0gbFs4Ge5EbQ3Qw00h6exaujsJtpVi7j3t1woUmebXS9ODeLIeNnD3XGNMQQzSD7jXOHtgl_pdAuoYjgi8xtfDMTmYglNcipStiH6IFP3hsqQfQ-w5GoAS4vmTVqa2FZE5a_5pBBy5y1KvidWqF_x9pcxpLyG1p6BZtqT45PtvUzHEvWoZjmbn59h2YUp-8MuHVvCXJMuSBclHJs_L4w6YZdXrN_nFqlJUckOop9YcyG2pBi3q-R8cR3rGe4E0se8U30vMvGoBcWmC2C1XF1_9yNqBKxT29IBtXjnA3g2yqSvqAU_Ogyhbsy-weam0ep8M4";
-const base_url = "https://67d3-156-221-119-205.ngrok-free.app";
-const baseURL = `${base_url}/api`;
+const baseURL = `https://2f10-156-218-5-35.ngrok-free.app/api`;
 // const baseURL = "http://localhost:3006";
 //////////////// GetCategory Action //////////////
 export const getCategory = createAsyncThunk(
   "category/getCategory",
   async (_, thunkAPI) => {
-    const { rejectWithValue ,getState } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
-      const token = getState().auth.userToken
+      const token = getState().auth.userToken;
       const res = await fetch(`${baseURL}/categories`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,9 +32,9 @@ export const getCategory = createAsyncThunk(
 export const deleteCategory = createAsyncThunk(
   "category/deleteCategory",
   async (item, thunkAPI) => {
-    const { rejectWithValue ,getState } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
     try {
-      const token = getState().auth.userToken
+      const token = getState().auth.userToken;
       await fetch(`${baseURL}/category/${item.id}`, {
         method: "DELETE",
         headers: {
@@ -54,21 +53,25 @@ export const deleteCategory = createAsyncThunk(
 export const insertCategory = createAsyncThunk(
   "category/insertCategory",
   async (categoryData, thunkAPI) => {
-    console.log(categoryData);
-    const { rejectWithValue,getState } = thunkAPI;
+    const { rejectWithValue, getState ,dispatch } = thunkAPI;
     try {
-      const token = getState().auth.userToken
+      const token = getState().auth.userToken;
+
+      // Create FormData object
+      const formData = new FormData();
+      formData.append("title", categoryData.title);
+      formData.append("image", categoryData.image);
+      console.log(formData)
       const res = await fetch(`${baseURL}/category/add`, {
         method: "POST",
-        body: JSON.stringify(categoryData),
+        body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
-
-          "Content-Type": "application/json; charset=UTF-8",
+          "ngrok-skip-browser-warning": "true",
         },
       });
       const data = await res.json();
-      console.log(data);
+      dispatch(getCategory())
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -79,10 +82,10 @@ export const insertCategory = createAsyncThunk(
 export const editCategory = createAsyncThunk(
   "category/editCategory",
   async (categoryData, thunkAPI) => {
-    const { rejectWithValue, dispatch ,getState } = thunkAPI;
+    const { rejectWithValue, dispatch, getState } = thunkAPI;
     console.log(categoryData);
     try {
-      const token = getState().auth.userToken
+      const token = getState().auth.userToken;
       const res = await fetch(`${baseURL}/category/edit/${categoryData.id}`, {
         method: "POST",
         body: JSON.stringify(categoryData),

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const baseURL = "http://localhost:3006/users";
+//
+const baseURL = "https://2f10-156-218-5-35.ngrok-free.app/api";
 //////////////// GetUsers Action //////////////
 export const getUsers = createAsyncThunk(
   "users/getUsers",
@@ -7,7 +8,12 @@ export const getUsers = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     try {
       const token = getState().auth.userToken;
-      const res = await fetch(baseURL);
+      const res = await fetch(`${baseURL}/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
       const data = await res.json();
       return data;
     } catch (error) {
@@ -22,10 +28,12 @@ export const deleteUsers = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     try {
       const token = getState().auth.userToken;
-      await fetch(`${baseURL}/${user.id}`, {
+      await fetch(`${baseURL}/user/${user.id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "true",
         },
       });
       return user;
@@ -42,11 +50,13 @@ export const insertUsers = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     try {
       const token = getState().auth.userToken;
-      const res = await fetch(baseURL, {
+      const res = await fetch(`${baseURL}/user/add`, {
         method: "POST",
         body: JSON.stringify(userData),
         headers: {
-          "content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json; charset=UTF-8",
+          "ngrok-skip-browser-warning": "true",
         },
       });
       const data = await res.json();
@@ -62,13 +72,16 @@ export const editUsers = createAsyncThunk(
   "products/editUsers",
   async (userData, thunkAPI) => {
     const { rejectWithValue, dispatch, getState } = thunkAPI;
+    console.log(userData);
     try {
       const token = getState().auth.userToken;
-      const res = await fetch(`${baseURL}/${userData.id}`, {
-        method: "PUT",
+      const res = await fetch(`${baseURL}/user/edit/${userData.id}`, {
+        method: "POST",
         body: JSON.stringify(userData),
         headers: {
           "content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "true",
         },
       });
       const data = await res.json();
@@ -97,7 +110,7 @@ const userSlice = createSlice({
       })
       .addCase(getUsers.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.users = action.payload;
+        state.users = action.payload.users;
       })
       .addCase(getUsers.rejected, (state, action) => {
         state.isLoading = false;
@@ -143,8 +156,8 @@ const userSlice = createSlice({
       })
       //EditUser Temp
       .addCase("Edit_User_Temp", (state, action) => {
-        state.userEdit = action.payload;
         state.userEditReport = !state.userEditReport;
+        state.userEdit = action.payload;
       });
   },
 });

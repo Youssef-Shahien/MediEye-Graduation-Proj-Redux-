@@ -12,7 +12,7 @@ function Products() {
   const { products, isLoading, error, editReport } = useSelector(
     (state) => state.products
   );
-  console.log(products.products);
+  console.log(products);
   const dispatch = useDispatch();
   /////////////////////////////////////////////////////////////////////
   // Edit Function to Handle Data & Navigation
@@ -27,33 +27,35 @@ function Products() {
   const showData =
     error === null ? (
       products && products.length > 0 ? (
-        products.map((item) => (
-          <tr key={item.id} className="text-center">
-            <td>
-              <img src={item.image} className="imgPro py-2" alt="" />
-            </td>
-            <td className="text-info">{item.name}</td>
-            <td className="fw-bold">{item.code}</td>
-            <td className="max">{item.description}</td>
-            <td>{item.category_title}</td>
-            <td>{item.price} EGP</td>
-            <td>{item.discount}</td>
-            <td>
-              <button
-                className="btn btn-outline-info me-1"
-                onClick={() => editHandler(item)}
-              >
-                <i className="fas fa-pen px-1"></i>Edit
-              </button>
-              <button
-                className="btn btn-outline-danger"
-                onClick={() => dispatch(deleteProducts(item))}
-              >
-                <i className="fas fa-trash pe-1"></i>Delete
-              </button>
-            </td>
-          </tr>
-        ))
+        products
+          .filter((item) => item && item.id)
+          .map((item) => (
+            <tr key={item.id} className="text-center">
+              <td>
+                <img src={item.image} className="imgPro py-2" alt="" />
+              </td>
+              <td className="text-info">{item.name}</td>
+              <td className="fw-bold">{item.code}</td>
+              <td className="max">{item.description}</td>
+              <td>{item.category_title}</td>
+              <td>{item.price} EGP</td>
+              <td>{item.discount}</td>
+              <td>
+                <button
+                  className="btn btn-outline-info me-1"
+                  onClick={() => editHandler(item)}
+                >
+                  <i className="fas fa-pen px-1"></i>Edit
+                </button>
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => dispatch(deleteProducts(item))}
+                >
+                  <i className="fas fa-trash pe-1"></i>Delete
+                </button>
+              </td>
+            </tr>
+          ))
       ) : (
         <tr>
           <td colSpan="7">

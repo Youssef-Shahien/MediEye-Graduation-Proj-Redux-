@@ -21,7 +21,7 @@ export default function Login() {
     e.preventDefault(); // Prevent the default form submission
     try {
       // Dispatch the login action with email and password
-      await dispatch(login({ email, password }));
+      dispatch(login({ email, password }));
       // Clear the form fields after successful login
       setEmail("");
       setPassword("");

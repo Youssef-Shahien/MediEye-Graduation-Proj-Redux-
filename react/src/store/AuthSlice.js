@@ -1,22 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 //user token
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;
 
-const baseURL = `https://67d3-156-221-119-205.ngrok-free.app/api`;
+const baseURL = `https://2f10-156-218-5-35.ngrok-free.app/api`;
 // const navigate = useNavigate();
 // Login Action
 export const login = createAsyncThunk(
   "auth/login",
-  async (userData, thunkAPI) => {
+  async ({ email, password }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
-    console.log(userData);
+    console.log({ email, password });
     try {
       const response = await fetch(`${baseURL}/login-email`, {
         method: "POST",
-        body: JSON.stringify(userData),
+        body: JSON.stringify({ email, password }),
         headers: {
+          'Content-Type': 'application/json',
           "ngrok-skip-browser-warning": "true",
         },
       });
@@ -68,10 +70,11 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.isLoading = false;
         state.userInfo = action.payload;
         state.success = true; // Set isAuthenticated to true upon successful login
-        state.userToken = userToken;
+        state.userToken = action.payload.token;
         console.log(state.userToken)
       })
       .addCase(login.rejected, (state, action) => {
@@ -100,3 +103,28 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+// export const login = createAsyncThunk(
+//   "auth/login",
+//   async ({ email, password }, thunkAPI) => {
+//     const { rejectWithValue } = thunkAPI;
+//     console.log({ email, password });
+//     try {
+//       // configure header's Content-Type as JSON
+//       const config = {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       }
+//       const { data } = await axios.post(
+//         `${baseURL}/login-email`,
+//         { email, password },
+//         config
+//       )
+//       // store user's token in local storage
+//       localStorage.setItem('userToken', data.userToken)
+//       return data
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );

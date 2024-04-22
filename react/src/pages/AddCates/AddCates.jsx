@@ -1,79 +1,68 @@
 import React from "react";
-import { useRef } from "react";
+import { useRef , useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { editCategory, insertCategory } from "../../store/CategorySlice";
 
 const AddCates = () => {
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-  
-    // Check if a file was selected
-    if (!file) {
-      console.error("No file selected.");
-      return;
-    }
-  
-    // Check if the file type is valid
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
-    if (!allowedTypes.includes(file.type)) {
-      console.error("Invalid file type. Please upload an image file (jpeg, png, jpg, gif).");
-      return;
-    }
-  
-    // File type is valid, proceed with reading the file
-    reader.onload = () => {
-      const base64Image = reader.result;
-      // Store the base64Image in your component's state or use it directly in the image source
-    };
-  
-    reader.readAsDataURL(file);
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { catEdit, catEditReport } = useSelector((state) => state.category);
+  const [imagePreview, setImagePreview] = useState(null);
   const title = useRef();
   const image = useRef();
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      image.current = file;
+      // Create a preview of the image
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     const data = {
       id: catEdit && catEdit.id,
       title: title.current.value,
-      image: image.current.value,
+      image: catEdit ? null : image.current,
     };
 
-    const isAnyInputEmpty = Object.keys(data).some((key) => {
-      if (key === "id" || key === "image") {
-        return false; // Skip checking the 'id' field
-      }
-      return data[key].trim() === "";
-    });
-
-    if (isAnyInputEmpty) {
-      // Display an error message or handle the empty input case
+    if (!data.title.trim()) {
       Swal.fire({
-        icon: "error",
-        title: "Please fill in all fields.",
-        text: "Error",
+        icon: 'error',
+        title: 'Please fill in the title field.',
+        text: 'Error',
       });
       return;
     }
-    // All inputs are filled, dispatch the action
+
+    // if (!data.image) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Please select an image.',
+    //     text: 'Error',
+    //   });
+    //   return;
+    // }
+
     if (catEditReport === true) {
       dispatch(editCategory(data));
-      dispatch({ type: "Edit_Categories_Temp" });
+      dispatch({ type: 'Edit_Categories_Temp' });
     } else {
       dispatch(insertCategory(data));
     }
-    // Reset input values
-    title.current.value = null;
-    image.current.value = null;
-    //Navigate to Category Page
 
-    navigate("/layout/cates");
+    title.current.value = '';
+    image.current = null;
+    setImagePreview(null);
+    navigate('/layout/cates');
   };
 
   return (
@@ -89,7 +78,7 @@ const AddCates = () => {
             className="form-control"
             id="exampleInputName"
             ref={title}
-            defaultValue={catEdit ? catEdit.title : ""}
+            defaultValue={catEdit ? catEdit.title : ''}
           />
         </div>
         <div className="mb-3">
@@ -101,11 +90,15 @@ const AddCates = () => {
             className="form-control border-0"
             id="exampleInputImage"
             onChange={handleImageUpload}
+            accept="image/jpeg, image/png, image/jpg, image/gif"
             ref={image}
           />
+          {imagePreview && (
+            <img src={imagePreview} alt="Preview" className="mt-2" style={{ maxWidth: '200px' }} />
+          )}
         </div>
         <button type="submit" className="btn btn-info text-light px-3">
-          {catEditReport ? "Edit" : "Add"}
+          {catEditReport ? 'Edit' : 'Add'}
         </button>
       </form>
     </div>

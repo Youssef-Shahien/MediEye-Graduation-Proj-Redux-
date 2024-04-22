@@ -5,8 +5,6 @@ import "./Categories.css";
 import { deleteCategory, getCategory } from "../../store/CategorySlice";
 
 const Categories = () => {
-
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { category, isLoading, error } = useSelector((state) => state.category);
@@ -19,30 +17,32 @@ const Categories = () => {
   const categoriesData =
     error === null ? (
       category && category.length > 0 ? (
-        category.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td className="px-4">{item.title}</td>
-            <td className="px-2">
-              <img src={item.image} className="imgPro py-2" alt="" />
-            </td>
+        category
+          .filter((item) => item && item.id)
+          .map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td className="px-4">{item.title}</td>
+              <td className="px-2">
+                <img src={item.image} className="imgPro py-2" alt="" />
+              </td>
 
-            <td>
-              <button
-                className="btn btn-outline-info me-3"
-                onClick={() => editCategoryHandler(item)}
-              >
-                <i className="fas fa-pen px-1"></i>Edit
-              </button>
-              <button
-                className="btn btn-outline-danger"
-                onClick={() => dispatch(deleteCategory(item))}
-              >
-                <i className="fas fa-trash pe-1"></i>Delete
-              </button>
-            </td>
-          </tr>
-        ))
+              <td>
+                <button
+                  className="btn btn-outline-info me-3"
+                  onClick={() => editCategoryHandler(item)}
+                >
+                  <i className="fas fa-pen px-1"></i>Edit
+                </button>
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => dispatch(deleteCategory(item))}
+                >
+                  <i className="fas fa-trash pe-1"></i>Delete
+                </button>
+              </td>
+            </tr>
+          ))
       ) : (
         <tr>
           <td colSpan="7">

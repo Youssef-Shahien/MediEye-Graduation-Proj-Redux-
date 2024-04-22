@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { editUsers, insertUsers } from "../../store/UserSlice";
 const AddUser = () => {
-  const user_name = useRef("");
-  const email = useRef("");
-  const password = useRef("");
-  const phone = useRef("");
-  const role = useRef("");
+  const user_name = useRef();
+  const email = useRef();
+  const password = useRef();
+  const phone = useRef();
+  const role = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userEdit, userEditReport } = useSelector((state) => state.users);
@@ -95,8 +95,8 @@ const AddUser = () => {
           <option value="default" disabled className=" text-secondary">
             Select role
           </option>
-          <option>Admin</option>
-          <option>User</option>
+          <option value="1">Admin</option>
+          <option value="0">User</option>
         </select>
 
         <button type="submit" className="btn btn-info text-light px-3">
