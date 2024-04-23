@@ -96,7 +96,7 @@ const AddUser = () => {
             Select role
           </option>
           <option value="1">Admin</option>
-          <option value="0">User</option>
+          <option value="2">User</option>
         </select>
 
         <button type="submit" className="btn btn-info text-light px-3">

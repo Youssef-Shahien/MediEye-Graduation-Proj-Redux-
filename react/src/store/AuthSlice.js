@@ -18,12 +18,14 @@ export const login = createAsyncThunk(
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           "ngrok-skip-browser-warning": "true",
         },
       });
       const data = await response.json();
-      localStorage.setItem("userToken", data.userToken);
+      // Save the token to local storage upon successful login
+      localStorage.setItem("userToken", data.token);
+
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -34,11 +36,11 @@ export const login = createAsyncThunk(
 // Register Action
 export const register = createAsyncThunk(
   "auth/register",
-  (userData, thunkAPI) => {
-    console.log(userData)
+  async (userData, thunkAPI) => {
+    console.log(userData);
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = fetch(`${baseURL}/register-pharmacy`, {
+      const response = await fetch(`${baseURL}/register-pharmacy`, {
         method: "POST",
         headers: {
           "ngrok-skip-browser-warning": "true",
@@ -58,7 +60,7 @@ const authSlice = createSlice({
   initialState: {
     isLoading: false,
     userInfo: [],
-    userToken: 'null',
+    userToken: localStorage.getItem("userToken") || null,
     error: null,
     success: false,
   },
@@ -70,12 +72,11 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.isLoading = false;
         state.userInfo = action.payload;
         state.success = true; // Set isAuthenticated to true upon successful login
         state.userToken = action.payload.token;
-        console.log(state.userToken)
+        console.log(state.userToken);
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
