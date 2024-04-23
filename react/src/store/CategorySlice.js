@@ -59,6 +59,7 @@ export const insertCategory = createAsyncThunk(
 
       // Create FormData object
       const formData = new FormData();
+      formData.append("id", categoryData.id);
       formData.append("title", categoryData.title);
       formData.append("image", categoryData.image);
       console.log(formData)

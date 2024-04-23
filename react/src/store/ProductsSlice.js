@@ -13,7 +13,7 @@ export const getProducts = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     try {
       const token = getState().auth.userToken;
-      const res = await fetch(`${baseURL}/products`, {
+      const res = await fetch(`${baseURL}/products-Pharmacy`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "true",
@@ -55,15 +55,24 @@ export const insertProducts = createAsyncThunk(
   "products/insertProducts",
   async (productData, thunkAPI) => {
     console.log(productData);
+    const formData = new FormData(); 
+    formData.append("id", productData.id);
+    formData.append("category_id", productData.category_id);
+    formData.append("name", productData.name);
+    formData.append("code", productData.code);
+    formData.append("description", productData.description);
+    formData.append("effective_material", productData.effective_material);
+    formData.append("price", productData.price); 
+    formData.append("discount", productData.discount);
+    formData.append("image", productData.image);
     const { rejectWithValue ,getState,dispatch } = thunkAPI;
     try {
       const token = getState().auth.userToken
       
       const res = await fetch(`${baseURL}/product/add`, {
         method: "POST",
-        body: JSON.stringify(productData),
+        body: formData,
         headers: {
-          "content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "true",
         },

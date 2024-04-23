@@ -9,7 +9,6 @@ import { getCategory } from "../../store/CategorySlice";
 
 function Upload() {
   const [imagePreview, setImagePreview] = useState(null);
-
   //Map Category to add it IN checkBox in Upload Page
   const { category } = useSelector((state) => state.category);
 
@@ -50,10 +49,11 @@ function Upload() {
   // form handler////////////////////////;
   const submitHandler = (e) => {
     e.preventDefault();
+
+
     const data = {
       id: edit && edit.id,
       category_id: category_id.current.value,
-      // category_title: edit && edit.category_title,
       name: name.current.value,
       code: code.current.value,
       description: description.current.value,
@@ -62,7 +62,6 @@ function Upload() {
       discount: discount.current.value,
       image: edit ? null : image.current,
     };
-
     console.log(data);
     const isAnyInputEmpty = Object.keys(data).some((key) => {
       if (key === "id" || key === "image") {
@@ -218,3 +217,15 @@ function Upload() {
 }
 
 export default Upload;
+
+
+// const formData = new FormData(); 
+// formData.append("id", edit.id);
+// formData.append("category_id", category_id.current.value);
+// formData.append("name", name.current.value);
+// formData.append("code", code.current.value);
+// formData.append("description", description.current.value);
+// formData.append("effective_material", effective_material.current.value);
+// formData.append("price", price.current.value); 
+// formData.append("discount", discount.current.value);
+// formData.append("image", image.current);

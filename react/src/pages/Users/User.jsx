@@ -25,7 +25,7 @@ const User = () => {
             <td className="px-5">{user.id}</td>
             <td className="ps-3">{user.user_name}</td>
             <td className="ps-3">{user.email}</td>
-            <td className="ps-3">{user.role}</td>
+            <td className="ps-3">{user.role === '0' ? "Admin" : "User"}</td>
             <td className="ps-2 text-center">
               <button
                 className="btn btn-outline-info me-4"
