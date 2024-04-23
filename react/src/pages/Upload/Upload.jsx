@@ -60,7 +60,7 @@ function Upload() {
       effective_material: effective_material.current.value,
       price: price.current.value,
       discount: discount.current.value,
-      image: edit ? null : image.current,
+      image:image.current,
     };
     console.log(data);
     const isAnyInputEmpty = Object.keys(data).some((key) => {

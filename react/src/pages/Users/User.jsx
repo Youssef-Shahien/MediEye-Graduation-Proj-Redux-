@@ -20,12 +20,14 @@ const User = () => {
   const cards =
     error === null ? (
       users && users.length > 0 ? (
-        users.map((user) => (
+        users
+          .filter((user) => user && user.id)
+          .map((user) => (
           <tr key={user.id}>
             <td className="px-5">{user.id}</td>
             <td className="ps-3">{user.user_name}</td>
             <td className="ps-3">{user.email}</td>
-            <td className="ps-3">{user.role === '0' ? "Admin" : "User"}</td>
+            <td className="ps-3">{user.role === '1' ? "Admin" : "User"}</td>
             <td className="ps-2 text-center">
               <button
                 className="btn btn-outline-info me-4"
@@ -48,7 +50,7 @@ const User = () => {
       ) : (
         <tr>
           <td colSpan="7">
-            <h4>There isn't Data There.....</h4>
+            <h4>There isn't Users  There.....</h4>
           </td>
         </tr>
       )

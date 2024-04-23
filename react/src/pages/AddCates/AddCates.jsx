@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef , useState} from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -31,14 +31,14 @@ const AddCates = () => {
     const data = {
       id: catEdit && catEdit.id,
       title: title.current.value,
-      image: catEdit ? null : image.current,
+      image: image.current,
     };
 
     if (!data.title.trim()) {
       Swal.fire({
-        icon: 'error',
-        title: 'Please fill in the title field.',
-        text: 'Error',
+        icon: "error",
+        title: "Please fill in the title field.",
+        text: "Error",
       });
       return;
     }
@@ -51,18 +51,22 @@ const AddCates = () => {
     //   });
     //   return;
     // }
-
-    if (catEditReport === true) {
-      dispatch(editCategory(data));
-      dispatch({ type: 'Edit_Categories_Temp' });
-    } else {
-      dispatch(insertCategory(data));
+    try {
+      if (catEditReport === true) {
+         dispatch(editCategory(data));
+        dispatch({ type: "Edit_Categories_Temp" });
+      } else {
+        dispatch(insertCategory(data));
+      }
+      //Reset Inputs
+      title.current.value = "";
+      image.current = null;
+      setImagePreview(null);
+      //Navigate to Category Page
+      navigate("/layout/cates");
+    } catch (error) {
+      console.log("Error", error);
     }
-
-    title.current.value = '';
-    image.current = null;
-    setImagePreview(null);
-    navigate('/layout/cates');
   };
 
   return (
@@ -78,7 +82,7 @@ const AddCates = () => {
             className="form-control"
             id="exampleInputName"
             ref={title}
-            defaultValue={catEdit ? catEdit.title : ''}
+            defaultValue={catEdit ? catEdit.title : ""}
           />
         </div>
         <div className="mb-3">
@@ -91,14 +95,19 @@ const AddCates = () => {
             id="exampleInputImage"
             onChange={handleImageUpload}
             accept="image/jpeg, image/png, image/jpg, image/gif"
-            ref={image}
+            // ref={image}
           />
           {imagePreview && (
-            <img src={imagePreview} alt="Preview" className="mt-2" style={{ maxWidth: '200px' }} />
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="mt-2"
+              style={{ maxWidth: "200px" }}
+            />
           )}
         </div>
         <button type="submit" className="btn btn-info text-light px-3">
-          {catEditReport ? 'Edit' : 'Add'}
+          {catEditReport ? "Edit" : "Add"}
         </button>
       </form>
     </div>
