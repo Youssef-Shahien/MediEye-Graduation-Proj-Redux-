@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import style from "./Orders.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from 'moment';
+
 import {
   faChevronDown,
   faSquareCheck,
@@ -17,6 +19,7 @@ function Orders() {
   const handleStyleWithOptionValue = (status, id) => {
     dispatch(editOrder({ id, status }));
   };
+  console.log(orders)
   //////////////////////////////////////////////////////////////////
   const tableRowData =
     error === null ? (
@@ -69,10 +72,8 @@ function Orders() {
             </td>
             {/* End Status Board*/}
             <td className="fw-bold">{item.total_amount}$</td>
-            <td>
-              March 21,2020
-              <br />
-              00:28
+            <td className="fw-bold">
+            {moment(item.created_at).format('YYYY-MM-DD HH:mm:ss')}
             </td>
           </tr>
         ))
