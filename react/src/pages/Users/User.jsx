@@ -74,12 +74,6 @@ const User = () => {
           </button>
         </NavLink>
       </div>
-      <div className="seach position-relative ">
-        <input type="text" className="form-control  " />
-        <button className="position-absolute start-90 text-light top-0 btn btn-info">
-          Search
-        </button>
-      </div>
       <table className="table table-responsive table-hover my-3 w-100">
         <thead>
           <tr className="border border-start-0 border-end-0 mb-1 text-secondary opacity-75 fw-bold">

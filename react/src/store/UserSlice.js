@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 //
-const baseURL = "https://e39c-156-221-18-113.ngrok-free.app/api";
+const baseURL = "https://2c1b-154-239-26-178.ngrok-free.app/api";
 //////////////// GetUsers Action //////////////
 export const getUsers = createAsyncThunk(
   "users/getUsers",

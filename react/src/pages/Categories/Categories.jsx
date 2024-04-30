@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Categories.css";
@@ -7,17 +7,22 @@ import { deleteCategory, getCategory } from "../../store/CategorySlice";
 const Categories = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
   const { category, isLoading, error } = useSelector((state) => state.category);
   // edit Handler Function
   const editCategoryHandler = (item) => {
     dispatch({ type: "Edit_Categories_Temp", payload: item });
     navigate("/layout/addcate");
   };
+    //Search Handler
+    const filteredProducts = category.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   //Map The Categories
   const categoriesData =
     error === null ? (
-      category && category.length > 0 ? (
-        category
+      filteredProducts && filteredProducts.length > 0 ? (
+        filteredProducts
           .filter((item) => item && item.id)
           .map((item) => (
             <tr key={item.id}>
@@ -74,7 +79,13 @@ const Categories = () => {
         </NavLink>
       </div>
       <div className="seach position-relative ">
-        <input type="text" className="form-control  " />
+        <input
+          type="text"
+          className="form-control"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search With Title"
+        />
         <button className="position-absolute start-90 text-light top-0 btn btn-info">
           Search
         </button>

@@ -1,20 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  deleteProducts,
-  // editProduct,
-  getProducts,
-} from "../../store/ProductsSlice";
+import { deleteProducts, getProducts } from "../../store/ProductsSlice";
 function Products() {
   const navigate = useNavigate();
-  const { products, isLoading, error, editReport } = useSelector(
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
+  const { products, isLoading, error, editReport} = useSelector(
     (state) => state.products
   );
-  console.log(products);
-  const dispatch = useDispatch();
-  /////////////////////////////////////////////////////////////////////
   // Edit Function to Handle Data & Navigation
   const editHandler = (item) => {
     if (editReport === false) {
@@ -22,12 +17,15 @@ function Products() {
     }
     navigate("/layout/upload");
   };
-  /////////////////////////////////////////////////////////////////////
-  /////////////////////Map on the Data and Show it there /////////////////////////////////////
+  //Search Handler
+  const filteredProducts = products.filter((product) =>
+  product.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+/////////////////////Map on the Data and Show it there /////////////////////////////////////
   const showData =
     error === null ? (
-      products && products.length > 0 ? (
-        products
+      filteredProducts && filteredProducts.length > 0 ? (
+        filteredProducts
           .filter((item) => item && item.id)
           .map((item) => (
             <tr key={item.id} className="text-center">
@@ -73,8 +71,8 @@ function Products() {
       </tr>
     );
 
-  ////////////////////////////////////////////////////////////////////////////
-
+  /////////////////////Map on the Data and Filter it there /////////////////////////////////////
+  
   //Get The Data From the Server
   useEffect(() => {
     dispatch(getProducts());
@@ -93,8 +91,16 @@ function Products() {
           </NavLink>
         </div>
         <div className="seach position-relative ">
-          <input type="text" className="form-control  " />
-          <button className="position-absolute start-90 text-light top-0 btn btn-info">
+          <input
+            type="text"
+            className="form-control"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search With Name"
+          />
+          <button
+            className="position-absolute start-90 text-light top-0 btn btn-info"
+          >
             Search
           </button>
         </div>

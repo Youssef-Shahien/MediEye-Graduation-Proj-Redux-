@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import style from "./Orders.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import moment from 'moment';
+import moment from "moment";
 
 import {
   faChevronDown,
@@ -10,27 +10,32 @@ import {
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { editOrder, getOrders } from "../../store/OrderSlice";
+import Products from "../Products/Products";
 
 function Orders() {
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
   const { orders, isLoading, error } = useSelector((state) => state.orders);
   const arrowFont = <FontAwesomeIcon icon={faChevronDown} />;
   const checkFont = <FontAwesomeIcon icon={faSquareCheck} />;
   const handleStyleWithOptionValue = (status, id) => {
     dispatch(editOrder({ id, status }));
   };
-  console.log(orders)
+  //Search Handler
+  const filteredProducts = orders.filter((order) =>
+    order.phone_number.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   //////////////////////////////////////////////////////////////////
   const tableRowData =
     error === null ? (
-      orders && orders.length > 0 ? (
-        orders.map((item) => (
+      filteredProducts && filteredProducts.length > 0 ? (
+        filteredProducts.map((item) => (
           <tr className={`${style[`${item.status}_tr`]}`} key={item.id}>
             <th className="text-secondary" scope="row">
               <input className={style.my_check} type="checkbox" />
             </th>
             <td>{item.id}</td>
-            <td className="fw-bold">Tv 14 Inche</td>
+            <td className="fw-bold">Vitacid-C</td>
             <td>{item.customer}</td>
             <td>{item.phone_number}</td>
             {/* Start Status Board*/}
@@ -73,7 +78,7 @@ function Orders() {
             {/* End Status Board*/}
             <td className="fw-bold">{item.total_amount}$</td>
             <td className="fw-bold">
-            {moment(item.created_at).format('YYYY-MM-DD HH:mm:ss')}
+              {moment(item.created_at).format("YYYY-MM-DD HH:mm:ss")}
             </td>
           </tr>
         ))
@@ -104,7 +109,13 @@ function Orders() {
       <h3 className="mb-3">My Orders</h3>
       {/* Start Search Bar*/}
       <div className="seach position-relative">
-        <input type="text" className="form-control  " />
+        <input
+          type="text"
+          className="form-control"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search With Phone Number"
+        />
         <button className="position-absolute start-90 text-light top-0 btn btn-info">
           Search
         </button>

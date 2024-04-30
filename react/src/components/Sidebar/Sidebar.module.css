@@ -19,7 +19,8 @@
 
 .nav ul li {
   width: 100%;
-  padding: 10px 0px;
+  margin-top: 20px;
+  /* padding: 10px 0px; */
   font-size: 15px;
   transition: background-color 350ms;
 }
@@ -41,7 +42,7 @@
   padding-left: 30px !important;
 }
 .nav li:not(.active):hover {
-  padding: 10px !important;
+  /* padding: 10px !important; */
   transition: 0.2s;
 }
 .nav [class="active"],
@@ -51,7 +52,9 @@
   border-radius: 20px;
   transition: 0.2s;
 }
-
+.nav [class="active"]:hover {
+  padding: 15px;
+}
 .nav [class="active"] {
   padding: 15px 0;
 }
