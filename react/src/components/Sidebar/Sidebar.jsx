@@ -10,8 +10,9 @@ export default function Sidebar({
 }) {
   const navigat = useNavigate();
   const logout = () => {
-    localStorage.removeItem("phar");
+    localStorage.removeItem("userToken");
     navigat("/");
+    window.location.reload();
   };
 
   return (
@@ -48,24 +49,25 @@ export default function Sidebar({
                   {isMinized ? "" : "Users"}
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to="/layout/adduser">
                   <i className="fas fa-plus me-3"></i>
                   {isMinized ? "" : "Add User"}
                 </NavLink>
-              </li>
+              </li>*/}
+
               <li>
                 <NavLink to="/layout/cates">
                   <i className="fas fa-qrcode me-3"></i>
                   {isMinized ? "" : "Categories"}
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to="/layout/addcate">
                   <i className="fas fa-plus me-3"></i>
                   {isMinized ? "" : "Add category"}
                 </NavLink>
-              </li>
+              </li>*/}
             </ul>
           ) : (
             ""

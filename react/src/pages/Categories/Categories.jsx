@@ -15,8 +15,8 @@ const Categories = () => {
     navigate("/layout/addcate");
   };
     //Search Handler
-    const filteredProducts = category.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredProducts = category?.filter((item) =>
+    item.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
   //Map The Categories
   const categoriesData =

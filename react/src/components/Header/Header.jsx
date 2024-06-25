@@ -1,18 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+
 function HeaderLogin() {
+  const navigate = useNavigate();
+
+  const HomeButtonHandler = () => {
+    localStorage.clear(); // Clear all items from localStorage
+    navigate("/"); // Redirect to home
+    window.location.reload(); // Refresh the page
+  };
+
   return (
     <div>
-      <nav className="navbar bg-secondary bg-opacity-10 ">
+      <nav className="navbar bg-secondary bg-opacity-10">
         <div className="container-fluid">
-          <a href="/" className="navbar-brand fw-bold logo ps-5">
-            <img src={logo} />
-          </a>
+          <div className="navbar-brand fw-bold logo ps-5">
+            <img src={logo} alt="Logo" />
+          </div>
           <div className="pe-5">
-            <Link to="/" className="btn button" type="submit">
+            <button className="btn button" onClick={HomeButtonHandler}>
               Home
-            </Link>
+            </button>
           </div>
         </div>
       </nav>

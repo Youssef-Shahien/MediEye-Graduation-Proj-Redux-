@@ -5,14 +5,13 @@ const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;
 
-const baseURL = `https://2c1b-154-239-26-178.ngrok-free.app/api`;
+const baseURL = `https://a976-154-239-100-161.ngrok-free.app/api`;
 // const navigate = useNavigate();
 // Login Action
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
-    console.log({ email, password });
     try {
       const response = await fetch(`${baseURL}/login-email`, {
         method: "POST",
@@ -22,13 +21,16 @@ export const login = createAsyncThunk(
           "ngrok-skip-browser-warning": "true",
         },
       });
+      if (!response.ok) {
+        const errorData = await response.json();
+        return rejectWithValue(errorData.error);
+      }
       const data = await response.json();
       // Save the token to local storage upon successful login
       localStorage.setItem("userToken", data.token);
-
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.error);
     }
   }
 );
@@ -76,9 +78,10 @@ const authSlice = createSlice({
         state.userInfo = action.payload;
         state.success = true; // Set isAuthenticated to true upon successful login
         state.userToken = action.payload.token;
-        console.log(state.userToken);
+        console.log(state.userToken)
       })
       .addCase(login.rejected, (state, action) => {
+        console.log(action.payload)
         state.isLoading = false;
         state.error = action.payload;
       })

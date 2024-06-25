@@ -23,34 +23,35 @@ const User = () => {
         users
           .filter((user) => user && user.id)
           .map((user) => (
-          <tr key={user.id}>
-            <td className="px-5">{user.id}</td>
-            <td className="ps-3">{user.user_name}</td>
-            <td className="ps-3">{user.email}</td>
-            <td className="ps-3">{user.role === '1' ? "Admin" : "User"}</td>
-            <td className="ps-2 text-center">
-              <button
-                className="btn btn-outline-info me-4"
-                onClick={() => editHadnler(user)}
-              >
-                <i className="fas fa-pen px-1"></i>Edit
-              </button>
-              <button className="btn btn-outline-info me-4">
+            <tr key={user.id}>
+              <td className="px-5">{user.id}</td>
+              <td className="ps-3">{user.user_name}</td>
+              <td className="ps-3">{user.email}</td>
+              <td className="ps-3">{user.role === "1" ? "Admin" : "User"}</td>
+              <td className="ps-2 text-center">
+                <button
+                  className="btn btn-outline-info me-4"
+                  onClick={() => editHadnler(user)}
+                >
+                  <i className="fas fa-pen px-1"></i>Edit
+                </button>
+                {/* <button className="btn btn-outline-info me-4">
                 <i className="fa-solid fa-circle-info pe-1"></i>Details
-              </button>
-              <button
-                className="btn btn-outline-danger"
-                onClick={() => dispatch(deleteUsers(user))}
-              >
-                <i className="fas fa-trash pe-1"></i>Delete
-              </button>
-            </td>
-          </tr>
-        ))
+              </button>*/}
+
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => dispatch(deleteUsers(user))}
+                >
+                  <i className="fas fa-trash pe-1"></i>Delete
+                </button>
+              </td>
+            </tr>
+          ))
       ) : (
         <tr>
           <td colSpan="7">
-            <h4>There isn't Users  There.....</h4>
+            <h4>There isn't Users There.....</h4>
           </td>
         </tr>
       )

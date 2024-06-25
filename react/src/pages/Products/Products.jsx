@@ -18,9 +18,9 @@ function Products() {
     navigate("/layout/upload");
   };
   //Search Handler
-  const filteredProducts = products.filter((product) =>
-  product.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  const filteredProducts = products?.filter((product) =>
+    product.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 /////////////////////Map on the Data and Show it there /////////////////////////////////////
   const showData =
     error === null ? (
